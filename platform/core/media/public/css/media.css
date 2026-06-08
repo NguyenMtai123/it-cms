@@ -1,0 +1,280 @@
+
+        .media-shell {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 16px;
+            margin-top: 16px;
+        }
+
+        .media-card {
+            background: #fff;
+            border: 1px solid #e5e7eb;
+            border-radius: 14px;
+            box-shadow: 0 1px 3px rgba(0,0,0,.04);
+        }
+
+        .media-sidebar {
+            padding: 14px;
+            min-height: 75vh;
+            position: sticky;
+            top: 16px;
+        }
+
+        .media-main {
+            padding: 14px;
+        }
+
+        .toolbar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 14px;
+            padding: 12px;
+            border: 1px solid #e5e7eb;
+            border-radius: 14px;
+            background: #fafafa;
+        }
+
+        .toolbar-left,
+        .toolbar-right {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .btnx {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 9px 14px;
+            border-radius: 10px;
+            border: 1px solid #d1d5db;
+            background: #fff;
+            cursor: pointer;
+            text-decoration: none;
+            color: #111827;
+            font-size: 14px;
+        }
+
+        .btnx:hover {
+            background: #f3f4f6;
+        }
+
+        .btnx.primary {
+            background: #2563eb;
+            border-color: #2563eb;
+            color: #fff;
+        }
+
+        .btnx.primary:hover {
+            background: #1d4ed8;
+        }
+
+        .btnx.danger {
+            background: #dc2626;
+            border-color: #dc2626;
+            color: #fff;
+        }
+
+        .btnx.danger:hover {
+            background: #b91c1c;
+        }
+
+        .crumbs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            align-items: center;
+            margin-bottom: 14px;
+            font-size: 14px;
+            color: #6b7280;
+        }
+
+        .crumbs a {
+            color: #2563eb;
+            text-decoration: none;
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 18px 0 12px;
+        }
+
+        .section-title h3 {
+            margin: 0;
+            font-size: 18px;
+        }
+
+        .folder-grid,
+        .file-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 12px;
+        }
+
+        .folder-item,
+        .file-item {
+            border: 1px solid #e5e7eb;
+            border-radius: 14px;
+            padding: 12px;
+            background: #fff;
+        }
+
+        .folder-item:hover,
+        .file-item:hover {
+            border-color: #cbd5e1;
+            box-shadow: 0 6px 20px rgba(0,0,0,.05);
+        }
+
+        .folder-icon,
+        .file-thumb {
+            width: 100%;
+            height: 92px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f8fafc;
+            margin-bottom: 10px;
+            overflow: hidden;
+            border: 1px solid #eef2f7;
+            font-size: 42px;
+        }
+
+        .file-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .folder-name,
+        .file-name {
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 6px;
+            word-break: break-word;
+        }
+
+        .meta {
+            font-size: 12px;
+            color: #6b7280;
+            margin-bottom: 10px;
+        }
+
+        .actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .actions form,
+        .actions a {
+            margin: 0;
+        }
+
+        .mini-btn {
+            border: 1px solid #d1d5db;
+            background: #fff;
+            border-radius: 8px;
+            padding: 6px 9px;
+            font-size: 12px;
+            cursor: pointer;
+            text-decoration: none;
+            color: #111827;
+        }
+
+        .mini-btn:hover {
+            background: #f3f4f6;
+        }
+
+        .mini-btn.danger {
+            border-color: #fecaca;
+            color: #b91c1c;
+        }
+
+        .tree a {
+            display: block;
+            padding: 6px 8px;
+            border-radius: 8px;
+            text-decoration: none;
+            color: #111827;
+        }
+
+        .tree a.active {
+            background: #dbeafe;
+            color: #1d4ed8;
+            font-weight: 600;
+        }
+
+        .tree a:hover {
+            background: #f3f4f6;
+        }
+
+        .upload-box {
+            border: 2px dashed #cbd5e1;
+            border-radius: 14px;
+            padding: 14px;
+            background: #fafafa;
+        }
+
+        .upload-box input[type="file"] {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        .modal-backdrop {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,.45);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+
+        .modal {
+            width: min(520px, calc(100vw - 24px));
+            border-radius: 16px;
+            padding: 18px;
+            box-shadow: 0 30px 80px rgba(0,0,0,.25);
+        }
+
+        .modal h3 {
+            margin: 0 0 12px;
+        }
+
+        .modal input,
+        .modal select {
+            width: 100%;
+            border: 1px solid #d1d5db;
+            border-radius: 10px;
+            padding: 10px 12px;
+            margin-bottom: 12px;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+        }
+
+        .empty-state {
+            border: 1px dashed #cbd5e1;
+            border-radius: 14px;
+            padding: 18px;
+            color: #6b7280;
+            background: #fafafa;
+        }
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}

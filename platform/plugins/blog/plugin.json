@@ -1,0 +1,7 @@
+{
+  "name": "Blog",
+  "slug": "blog",
+  "version": "1.0.0",
+  "description": "Blog system for CMS",
+  "provider": "Platform\\Plugins\\Blog\\Providers\\BlogServiceProvider"
+}

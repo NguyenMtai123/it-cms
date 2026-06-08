@@ -1,0 +1,52 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class () extends Migration {
+    public function up(): void
+    {
+        Schema::create('media_folders', function (Blueprint $table): void {
+            $table->id();
+            $table->foreignId('user_id')->nullable()->index();
+            $table->string('name')->nullable();
+            $table->string('slug')->nullable();
+            $table->foreignId('parent_id')->nullable()->default(0);
+            $table->string('color')->nullable();
+            $table->timestamps();
+            $table->softDeletes();
+        });
+
+        Schema::create('media_files', function (Blueprint $table): void {
+            $table->id();
+            $table->foreignId('user_id')->nullable()->index();
+            $table->string('name');
+            $table->string('alt')->nullable();
+            $table->foreignId('folder_id')->nullable()->default(0);
+            $table->string('mime_type', 120);
+            $table->integer('size');
+            $table->string('url');
+            $table->string('visibility')->default('public');
+            $table->text('options')->nullable();
+            $table->timestamps();
+            $table->softDeletes();
+        });
+
+        Schema::create('media_settings', function (Blueprint $table): void {
+            $table->id();
+            $table->string('key', 120);
+            $table->text('value')->nullable();
+            $table->foreignId('media_id')->nullable();
+            $table->foreignId('user_id')->nullable();
+            $table->timestamps();
+        });
+    }
+
+    public function down(): void
+    {
+        Schema::dropIfExists('media_settings');
+        Schema::dropIfExists('media_files');
+        Schema::dropIfExists('media_folders');
+    }
+};

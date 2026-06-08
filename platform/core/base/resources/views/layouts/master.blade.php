@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@yield('title', 'IT CMS Admin')</title>
+    @if (setting('site_favicon'))
+        <link rel="icon" href="{{ asset('storage/' . setting('site_favicon')) }}">
+    @endif
+
+    <!-- Google Font -->
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+
+    <!-- AdminLTE -->
+    <link rel="stylesheet" href="{{ asset('adminlte/plugins/fontawesome-free/css/all.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('adminlte/dist/css/adminlte.min.css') }}">
+
+    @stack('styles')
+</head>
+
+<body class="hold-transition sidebar-mini layout-fixed">
+    <div class="wrapper">
+
+        {{-- NAVBAR --}}
+        @include('base::partials.navbar')
+
+        {{-- SIDEBAR --}}
+        @include('base::partials.sidebar')
+
+        {{-- CONTENT --}}
+        <div class="content-wrapper">
+
+            <section class="content-header">
+                <div class="container-fluid">
+                    @yield('page-header')
+                </div>
+            </section>
+
+            <section class="content">
+                <div class="container-fluid mb-2">
+                    @yield('content')
+                </div>
+            </section>
+
+        </div>
+
+        {{-- FOOTER --}}
+        <footer class="main-footer">
+            <strong>IT CMS</strong> © {{ date('Y') }}
+        </footer>
+
+    </div>
+
+    <!-- JS -->
+    <script src="{{ asset('adminlte/plugins/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('adminlte/dist/js/adminlte.min.js') }}"></script>
+
+    @stack('scripts');
+    @include('media::components.scripts')
+</body>
+
+</html>
