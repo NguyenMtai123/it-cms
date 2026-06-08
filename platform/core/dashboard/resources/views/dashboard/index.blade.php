@@ -20,11 +20,6 @@
             <h3 class="mb-0">Dashboard</h3>
             <small class="text-muted">Overview system statistics & management</small>
         </div>
-
-        <a href="/admin/logout" class="btn btn-outline-danger btn-sm">
-            <i class="fas fa-sign-out-alt"></i>
-            Logout
-        </a>
     </div>
 
     {{-- WIDGETS --}}

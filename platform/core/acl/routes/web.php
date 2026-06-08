@@ -90,12 +90,15 @@ Route::prefix('admin')
                             ->name('store');
 
                         Route::get('/{id}/edit', [RoleController::class, 'edit'])
+                        ->middleware('permission:roles.edit')
                             ->name('edit');
 
                         Route::put('/{id}', [RoleController::class, 'update'])
+                        ->middleware('permission:roles.edit')
                             ->name('update');
 
                         Route::delete('/{id}', [RoleController::class, 'destroy'])
+                        ->middleware('permission:roles.delete')
                             ->name('destroy');
 
                     });

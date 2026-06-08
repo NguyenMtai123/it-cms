@@ -10,14 +10,4 @@ return [
         ],
     ],
 
-    [
-        'name' => 'Users',
-        'flags' => [
-            'users.view',
-            'users.create',
-            'users.edit',
-            'users.delete',
-        ],
-    ],
-
 ];
