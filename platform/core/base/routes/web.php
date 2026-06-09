@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Platform\Core\Base\Http\Controllers\AnnouncementController;
 use Platform\Core\Base\Http\Controllers\PluginController;
 use Platform\Core\Base\Http\Controllers\SettingsController;
 use Platform\Core\Base\Http\Controllers\MenuController;
