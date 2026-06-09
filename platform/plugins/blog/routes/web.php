@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Platform\Plugins\Blog\Http\Controllers\CategoryController;
 use Platform\Plugins\Blog\Http\Controllers\PostController;
+use Platform\Plugins\Blog\Http\Controllers\PublicPostController;
 use Platform\Plugins\Blog\Http\Controllers\TagController;
 
 Route::prefix('admin/blog')
@@ -27,3 +28,7 @@ Route::prefix('admin/blog')
         Route::post('/tags', [TagController::class, 'store']);
         Route::delete('/tags/{id}', [TagController::class, 'destroy']);
     });
+Route::middleware('web')->group(function () {
+Route::get('/blog', [PublicPostController::class, 'index']);
+Route::get('/blog/{slug}', [PublicPostController::class, 'show']);
+ });

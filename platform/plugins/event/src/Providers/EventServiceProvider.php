@@ -3,12 +3,20 @@
 namespace Platform\Plugins\Event\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Platform\Plugins\Event\Models\Event;
 
 class EventServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
-        // permissions nếu cần
+        $permissions = require __DIR__ . '/../../config/permissions.php';
+
+            config([
+                'acl.permissions' => array_merge(
+                    config('acl.permissions', []),
+                    $permissions
+                ),
+            ]);
     }
 
     public function boot(): void
@@ -26,6 +34,11 @@ class EventServiceProvider extends ServiceProvider
             'name' => 'Events',
             'icon' => 'fas fa-calendar-alt',
             'url' => '/admin/events',
+        ]);
+        dashboard_widget([
+            'title' => 'Event',
+            'value' => Event::count(),
+            'icon' => 'newspaper'
         ]);
     }
 }

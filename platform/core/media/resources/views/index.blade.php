@@ -318,7 +318,7 @@
                                             <i class="fas fa-pen mr-2"></i> Rename
                                         </button>
 
-                                        <button
+                                        {{-- <button
                                             type="button"
                                             class="media-mini-menu-item"
                                             onclick="openAltModal(
@@ -328,7 +328,7 @@
                                             )"
                                         >
                                             <i class="fas fa-image mr-2"></i> Alt text
-                                        </button>
+                                        </button> --}}
 
                                         <form
                                             method="POST"

@@ -3,14 +3,20 @@
 namespace Platform\Core\Base\Http\Controllers;
 
 use Illuminate\Routing\Controller;
-use Platform\Plugins\Blog\Models\Post;
-use Platform\Plugins\Blog\Models\Category;
 use Platform\Core\Base\Models\Announcement;
+use Platform\Plugins\Banner\Models\Banner;
+use Platform\Plugins\Blog\Models\Category;
+use Platform\Plugins\Blog\Models\Post;
 
 class HomeController extends Controller
 {
     public function index()
     {
+        $sliders = Banner::where('status', 1)
+            ->orderBy('sort_order')
+            ->take(5)
+            ->get();
+
         $featuredPosts = Post::where('status', 1)
             ->latest()
             ->take(4)
@@ -20,10 +26,7 @@ class HomeController extends Controller
             ->latest()
             ->paginate(4);
 
-        $categories = Category::query()
-            ->latest()
-            ->take(8)
-            ->get();
+        $categories = Category::latest()->take(8)->get();
 
         $announcements = Announcement::where('status', 1)
             ->latest()
@@ -31,9 +34,10 @@ class HomeController extends Controller
             ->get();
 
         return view('theme::home', compact(
+            'sliders',
             'featuredPosts',
-            'categories',
             'latestPosts',
+            'categories',
             'announcements'
         ));
     }

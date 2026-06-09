@@ -27,6 +27,8 @@ class BaseServiceProvider extends ServiceProvider
         $this->app->singleton('base.helper', function () {
             return new \Platform\Core\Base\Helpers\BaseHelper();
         });
+        $this->app->register(\Platform\Packages\Slug\Providers\SlugServiceProvider::class);
+        $this->app->register(\Platform\Packages\Page\Providers\PageServiceProvider::class);
     }
 
     public function boot(): void
@@ -89,34 +91,12 @@ class BaseServiceProvider extends ServiceProvider
             'permission' => 'core.system',
             'children' => [
                 [
-                    'name' => 'Announcements',
-                    'url' => '/admin/announcements',
-                    'icon' => 'fas fa-bullhorn', // Giữ nguyên loa thông báo
-                ],
-                [
                     'name' => 'Menu Builder',
                     'url' => '/admin/menus',
                     'icon' => 'fas fa-stream', // Thay bars (3 gạch) thành stream (dạng phân cấp cây menu)
                     'permission' => 'core.system',
                 ],
-            ],
-        ]);
-
-        dashboard_menu([
-            'id' => 'themes',
-            'name' => 'Themes',
-            'icon' => 'fas fa-palette', // Thay paint-brush thành bảng màu (Palette) thiết kế hiện đại
-            'url' => '/admin/themes',
-            'permission' => 'core.system',
-        ]);
-
-        dashboard_menu([
-            'id' => 'security',
-            'name' => 'Security',
-            'icon' => 'fas fa-shield-alt', // Sửa lỗi icon trùng lắp (cogs) thành Khiên bảo mật
-            'permission' => 'core.system',
-            'children' => [
-                [
+                 [
                     'name' => 'Users',
                     'url' => '/admin/users',
                     'icon' => 'fas fa-user-shield', // Thay users thành user-shield (người dùng quản trị)
@@ -129,6 +109,21 @@ class BaseServiceProvider extends ServiceProvider
                     'permission' => 'core.system',
                 ],
             ],
+        ]);
+
+        dashboard_menu([
+            'id' => 'themes',
+            'name' => 'Themes',
+            'icon' => 'fas fa-palette', // Thay paint-brush thành bảng màu (Palette) thiết kế hiện đại
+            'url' => '/admin/themes',
+            'permission' => 'core.system',
+        ]);
+        dashboard_menu([
+            'id' => 'pages',
+            'name' => 'Pages',
+            'icon' => 'fas fa-file-alt',
+            'url' => '/admin/pages',
+            'permission' => 'pages.view',
         ]);
     }
 }

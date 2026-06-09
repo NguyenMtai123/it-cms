@@ -35,17 +35,28 @@ Route::prefix('admin/menus')->middleware(['web', 'admin'])->group(function () {
     Route::get('/', [MenuController::class, 'index'])->name('menus.index')->middleware('permission:core.system');
     Route::get('/{id}/edit', [MenuController::class, 'edit'])->name('menus.edit')->middleware('permission:core.system');
 
-    Route::post('/{id}/items', [MenuController::class, 'storeItem'])->name('menus.items.store')->middleware('permission:core.system');
+    Route::get('/menus/create', [MenuController::class, 'create'])
+        ->name('menus.create');
 
+    Route::post('/menus', [MenuController::class, 'store'])
+        ->name('menus.store');
+
+    Route::post('/{id}/items', [MenuController::class, 'storeItem'])->name('menus.items.store')->middleware('permission:core.system');
+    Route::get(
+        '/menus/items/{id}/edit',
+        [MenuController::class, 'editItem']
+    )->name('menus.items.edit');
+
+    Route::put(
+        '/menus/items/{id}',
+        [MenuController::class, 'updateItem']
+    )->name('menus.items.update');
+
+    Route::delete(
+        '/menus/items/{id}',
+        [MenuController::class, 'destroyItem']
+    )->name('menus.items.destroy');
     Route::post('/order', [MenuController::class, 'updateOrder'])->name('menus.order')->middleware('permission:core.system');
-});
-Route::prefix('admin/announcements')->middleware(['web', 'admin'])->group(function () {
-    Route::get('/', [AnnouncementController::class, 'index'])->name('announcements.index')->middleware('permission:core.system');
-    Route::get('/create', [AnnouncementController::class, 'create'])->name('announcements.create')->middleware('permission:core.system');
-    Route::post('/', [AnnouncementController::class, 'store'])->name('announcements.store')->middleware('permission:core.system');
-    Route::get('/{id}/edit', [AnnouncementController::class, 'edit'])->name('announcements.edit')->middleware('permission:core.system');
-    Route::put('/{id}', [AnnouncementController::class, 'update'])->name('announcements.update')->middleware('permission:core.system');
-    Route::delete('/{id}', [AnnouncementController::class, 'destroy'])->name('announcements.destroy')->middleware('permission:core.system');
 });
 Route::prefix('admin/themes')->middleware(['web', 'admin'])->group(function () {
     Route::get('/', [ThemeController::class, 'index']);

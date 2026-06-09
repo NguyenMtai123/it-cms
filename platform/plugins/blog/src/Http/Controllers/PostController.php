@@ -18,7 +18,7 @@ class PostController extends Controller
             'categories'
         ])
             ->latest()
-            ->paginate(10);
+            ->paginate(6);
 
         return view(
             'blog::posts.index',

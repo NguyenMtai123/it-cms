@@ -42,7 +42,7 @@
                             $isActive = MenuHelper::isActive($child['url'] ?? '');
                         @endphp
 
-                        <li class="nav-item">
+                        <li class="nav-item px-3">
                             <a href="{{ $child['url'] ?? '#' }}"
                                class="nav-link {{ $isActive ? 'active' : '' }}">
                                 <i class="{{ $child['icon'] ?? 'far fa-dot-circle' }} nav-icon"></i>

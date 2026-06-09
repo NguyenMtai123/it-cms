@@ -3,21 +3,12 @@
 use Illuminate\Support\Facades\Route;
 use Platform\Core\ACL\Http\Controllers\CustomerAuthController;
 use Platform\Core\Base\Http\Controllers\HomeController;
-use Platform\Core\Base\Http\Controllers\PublicAnnouncementController;
-use Platform\Core\Base\Http\Controllers\PublicPageController;
 use Platform\Plugins\Blog\Http\Controllers\PublicPostController;
 use Platform\Plugins\Event\Http\Controllers\PublicEventController;
 
 Route::middleware('web')->group(function () {
 
 Route::get('/', [HomeController::class, 'index']);
-Route::get('/blog', [PublicPostController::class, 'index']);
-Route::get('/blog/{slug}', [PublicPostController::class, 'show']);
-Route::get('/announcements', [PublicAnnouncementController::class, 'index'])
-    ->name('public.announcements.index');
-
-Route::get('/announcements/{slug}', [PublicAnnouncementController::class, 'show'])
-    ->name('public.announcements.show');
 
 
     Route::get('/login', [
@@ -44,7 +35,6 @@ Route::get('/announcements/{slug}', [PublicAnnouncementController::class, 'show'
         'logout'
     ])->name('customer.logout');
     Route::get('/events', [PublicEventController::class, 'index'])->name('public.events.index');
-Route::get('/events/{slug}', [PublicEventController::class, 'show'])->name('public.events.show');
-    Route::get('/{slug}', [PublicPageController::class, 'show']);
+    Route::get('/events/{slug}', [PublicEventController::class, 'show'])->name('public.events.show');
 
 });

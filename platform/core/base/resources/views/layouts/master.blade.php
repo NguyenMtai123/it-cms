@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@yield('title', 'IT CMS Admin')</title>
     @if (setting('site_favicon'))
-        <link rel="icon" href="{{ asset('storage/' . setting('site_favicon')) }}">
+        <link rel="icon" href="{{ asset(setting('site_favicon')) }}">
     @endif
 
     <!-- Google Font -->
@@ -87,7 +87,16 @@
     <script src="{{ asset('adminlte/plugins/jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('adminlte/dist/js/adminlte.min.js') }}"></script>
-
+    <script>
+    setTimeout(function () {
+        let alerts = document.querySelectorAll('.alert');
+        alerts.forEach(function (alert) {
+            alert.style.transition = "0.5s";
+            alert.style.opacity = "0";
+            setTimeout(() => alert.remove(), 500);
+        });
+    }, 5000);
+</script>
     @stack('scripts');
     @include('media::components.scripts')
 </body>

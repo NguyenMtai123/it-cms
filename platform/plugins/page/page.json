@@ -1,7 +1,0 @@
-{
-  "name": "Page",
-  "slug": "page",
-  "version": "1.0.0",
-  "description": "Page system for CMS",
-  "provider": "Platform\\Plugins\\Page\\Providers\\PageServiceProvider"
-}

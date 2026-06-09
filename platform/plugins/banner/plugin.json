@@ -1,0 +1,7 @@
+{
+  "name": "Banner",
+  "slug": "banner",
+  "version": "1.0.0",
+  "description": "Banner system for CMS",
+  "provider": "Platform\\Plugins\\Banner\\Providers\\BannerServiceProvider"
+}
