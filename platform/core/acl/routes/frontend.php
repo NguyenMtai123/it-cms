@@ -3,7 +3,6 @@
 use Illuminate\Support\Facades\Route;
 use Platform\Core\ACL\Http\Controllers\CustomerAuthController;
 use Platform\Core\Base\Http\Controllers\HomeController;
-use Platform\Plugins\Blog\Http\Controllers\PublicPostController;
 use Platform\Plugins\Event\Http\Controllers\PublicEventController;
 
 Route::middleware('web')->group(function () {
