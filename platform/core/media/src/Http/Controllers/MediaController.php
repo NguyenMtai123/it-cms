@@ -51,6 +51,11 @@ class MediaController extends Controller
     {
         $request->validate([
             'file' => ['required'],
+            'file.*' => [
+                'file',
+                'max:8120', // 50MB (đơn vị KB)
+                'mimes:jpg,jpeg,png,gif,webp,pdf,docx,zip,mp4',
+            ],
         ]);
 
         $folderId = (int) $request->input('folder_id', 0);

@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Platform\Plugins\Event\Http\Controllers\EventController;
+use Platform\Plugins\Event\Http\Controllers\PublicEventController;
 
 Route::prefix('admin/events')->middleware(['web', 'admin'])->group(function () {
 
@@ -13,4 +14,10 @@ Route::prefix('admin/events')->middleware(['web', 'admin'])->group(function () {
     Route::put('/{id}', [EventController::class, 'update'])->name('events.update')->middleware('permission:event.edit');
 
     Route::delete('/{id}', [EventController::class, 'destroy'])->name('events.destroy')->middleware('permission:event.delete');
+});
+
+Route::middleware('web')->group(function () {
+
+ Route::get('/events', [PublicEventController::class, 'index'])->name('public.events.index');
+    Route::get('/events/{slug}', [PublicEventController::class, 'show'])->name('public.events.show');
 });

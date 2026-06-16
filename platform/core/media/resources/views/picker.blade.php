@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -19,7 +20,9 @@
             --radius: 16px;
         }
 
-        * { box-sizing: border-box; }
+        * {
+            box-sizing: border-box;
+        }
 
         body {
             margin: 0;
@@ -28,7 +31,9 @@
             color: var(--text);
         }
 
-        a { color: inherit; }
+        a {
+            color: inherit;
+        }
 
         .header {
             position: sticky;
@@ -37,7 +42,7 @@
             background: var(--card);
             border-bottom: 1px solid var(--border);
             padding: 14px 18px;
-            box-shadow: 0 1px 0 rgba(0,0,0,.02);
+            box-shadow: 0 1px 0 rgba(0, 0, 0, .02);
         }
 
         .header-row {
@@ -350,7 +355,7 @@
             border-radius: 14px;
             background: #fff;
             overflow: hidden;
-            box-shadow: 0 2px 12px rgba(15,23,42,.03);
+            box-shadow: 0 2px 12px rgba(15, 23, 42, .03);
             position: relative;
         }
 
@@ -408,7 +413,7 @@
             height: 34px;
             border-radius: 10px;
             border: 1px solid rgba(15, 23, 42, .08);
-            background: rgba(255,255,255,.96);
+            background: rgba(255, 255, 255, .96);
             cursor: pointer;
             display: inline-flex;
             align-items: center;
@@ -487,21 +492,28 @@
                 grid-template-columns: 1fr;
             }
 
-            .sidebar, .main {
+            .sidebar,
+            .main {
                 min-height: auto;
             }
         }
-        .grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
-    gap: 12px;
 
-    max-height: 600px;   /* hoặc 70vh tùy UI */
-    overflow-y: auto;    /* bật cuộn dọc */
-    padding-right: 6px;  /* tránh bị che scrollbar */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+            gap: 12px;
+
+            max-height: 600px;
+            overflow-y: auto;
+            overflow-x: visible;
+        }
+        .item {
+    position: relative;
+    overflow: visible;
 }
     </style>
 </head>
+
 <body>
     <div class="header">
         <div class="header-row">
@@ -522,21 +534,21 @@
     </div>
 
     <div class="crumbs">
-        @foreach($breadcrumbs as $breadcrumb)
+        @foreach ($breadcrumbs as $breadcrumb)
             <a href="{{ $breadcrumb['url'] }}">{{ $breadcrumb['name'] }}</a>
-            @if(! $loop->last)
+            @if (!$loop->last)
                 <span>/</span>
             @endif
         @endforeach
     </div>
 
-    @if(session('success'))
+    @if (session('success'))
         <div class="alert alert-success" style="margin: 14px 18px 0;">
             {{ session('success') }}
         </div>
     @endif
 
-    @if($errors->any())
+    @if ($errors->any())
         <div class="alert alert-error" style="margin: 14px 18px 0;">
             {{ $errors->first() }}
         </div>
@@ -549,12 +561,11 @@
                 <div class="section-subtitle">Chọn thư mục để mở</div>
             </div>
 
-            <a class="tree-root {{ (int) $currentFolderId === 0 ? 'active' : '' }}"
-               href="{{ route('media.picker') }}">
+            <a class="tree-root {{ (int) $currentFolderId === 0 ? 'active' : '' }}" href="{{ route('media.picker') }}">
                 📁 All media
             </a>
 
-            @if($rootFolders->count())
+            @if ($rootFolders->count())
                 @include('media::partials.picker-folder-tree', [
                     'folders' => $rootFolders,
                     'currentFolderId' => $currentFolderId,
@@ -581,25 +592,18 @@
                         New folder
                     </button>
 
-                    @if($currentFolder)
-                        <button
-                            type="button"
-                            class="btn"
+                    @if ($currentFolder)
+                        <button type="button" class="btn"
                             onclick="openRenameFolderModal(
                                 {{ $currentFolder->id }},
                                 @js($currentFolder->name),
                                 @js(route('media.folders.rename', $currentFolder->id))
-                            )"
-                        >
+                            )">
                             Rename folder
                         </button>
 
-                        <form
-                            method="POST"
-                            action="{{ route('media.folders.destroy', $currentFolder->id) }}"
-                            onsubmit="return confirm('Delete this folder and all children?')"
-                            style="display:inline;"
-                        >
+                        <form method="POST" action="{{ route('media.folders.destroy', $currentFolder->id) }}"
+                            onsubmit="return confirm('Delete this folder and all children?')" style="display:inline;">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger">Delete folder</button>
@@ -609,10 +613,8 @@
             </div>
 
             <div class="upload-box">
-                <form id="uploadForm"
-                      method="POST"
-                      action="{{ route('media.upload') }}"
-                      enctype="multipart/form-data">
+                <form id="uploadForm" method="POST" action="{{ route('media.upload') }}"
+                    enctype="multipart/form-data">
                     @csrf
 
                     <input type="hidden" name="folder_id" value="{{ $currentFolderId }}">
@@ -658,39 +660,42 @@
                 $items = collect();
 
                 foreach ($folders as $folder) {
-                    $items->push((object) [
-                        'type' => 'folder',
-                        'id' => $folder->id,
-                        'name' => $folder->name,
-                        'size' => null,
-                        'mime_type' => null,
-                        'url' => null,
-                        'alt' => null,
-                        'model' => $folder,
-                    ]);
+                    $items->push(
+                        (object) [
+                            'type' => 'folder',
+                            'id' => $folder->id,
+                            'name' => $folder->name,
+                            'size' => null,
+                            'mime_type' => null,
+                            'url' => null,
+                            'alt' => null,
+                            'model' => $folder,
+                        ],
+                    );
                 }
 
                 foreach ($files as $file) {
-                    $items->push((object) [
-                        'type' => 'file',
-                        'id' => $file->id,
-                        'name' => $file->name,
-                        'size' => $file->size,
-                        'mime_type' => $file->mime_type,
-                        'url' => $file->url,
-                        'alt' => $file->alt,
-                        'model' => $file,
-                    ]);
+                    $items->push(
+                        (object) [
+                            'type' => 'file',
+                            'id' => $file->id,
+                            'name' => $file->name,
+                            'size' => $file->size,
+                            'mime_type' => $file->mime_type,
+                            'url' => $file->url,
+                            'alt' => $file->alt,
+                            'model' => $file,
+                        ],
+                    );
                 }
             @endphp
 
-            @if($items->count())
+            @if ($items->count())
                 <div class="grid">
-                    @foreach($items as $item)
-                        @if($item->type === 'folder')
+                    @foreach ($items as $item)
+                        @if ($item->type === 'folder')
                             <div class="item folder-item">
-                                <a href="{{ route('media.picker', ['folder_id' => $item->id]) }}"
-                                   class="item-link">
+                                <a href="{{ route('media.picker', ['folder_id' => $item->id]) }}" class="item-link">
                                     <div class="thumb">
                                         <span class="folder-badge">📁</span>
                                     </div>
@@ -706,29 +711,22 @@
                                     </button>
 
                                     <div class="menu-panel">
-                                        <button
-                                            type="button"
-                                            class="menu-item"
-                                            onclick="window.location='{{ route('media.picker', ['folder_id' => $item->id]) }}'"
-                                        >
+                                        <button type="button" class="menu-item"
+                                            onclick="window.location='{{ route('media.picker', ['folder_id' => $item->id]) }}'">
                                             Open
                                         </button>
 
-                                        <button
-                                            type="button"
-                                            class="menu-item"
+                                        <button type="button" class="menu-item"
                                             onclick="openRenameFolderModal(
                                                 {{ $item->id }},
                                                 @js($item->name),
                                                 @js(route('media.folders.rename', $item->id))
-                                            )"
-                                        >
+                                            )">
                                             Rename
                                         </button>
 
-                                        <form method="POST"
-                                              action="{{ route('media.folders.destroy', $item->id) }}"
-                                              onsubmit="return confirm('Delete this folder and all children?')">
+                                        <form method="POST" action="{{ route('media.folders.destroy', $item->id) }}"
+                                            onsubmit="return confirm('Delete this folder and all children?')">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="menu-item danger">Delete</button>
@@ -753,21 +751,17 @@
 
                                         <a href="{{ $fileUrl }}" download class="menu-item">Download</a>
 
-                                        <button
-                                            type="button"
-                                            class="menu-item"
+                                        <button type="button" class="menu-item"
                                             onclick="openRenameFileModal(
                                                 {{ $item->id }},
                                                 @js($item->name),
                                                 @js(route('media.files.rename', $item->id))
-                                            )"
-                                        >
+                                            )">
                                             Rename
                                         </button>
 
-                                        <form method="POST"
-                                              action="{{ route('media.files.destroy', $item->id) }}"
-                                              onsubmit="return confirm('Delete this file?')">
+                                        <form method="POST" action="{{ route('media.files.destroy', $item->id) }}"
+                                            onsubmit="return confirm('Delete this file?')">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="menu-item danger">Delete</button>
@@ -775,14 +769,15 @@
                                     </div>
                                 </div>
 
-                                <div class="item-link" onclick="selectMedia(
+                                <div class="item-link"
+                                    onclick="selectMedia(
                                     {{ $item->id }},
                                     @js($fileUrl),
                                     @js($item->name),
                                     @js($item->alt)
                                 )">
                                     <div class="thumb">
-                                        @if($isImage)
+                                        @if ($isImage)
                                             <img src="{{ $fileUrl }}" alt="{{ $item->alt ?? $item->name }}">
                                         @else
                                             📄
@@ -811,9 +806,12 @@
     </div>
 
     {{-- New folder modal --}}
-    <div id="newFolderModal" class="hidden" style="position:fixed; inset:0; background:rgba(15,23,42,.5); z-index:50; align-items:center; justify-content:center; padding:18px;">
-        <div style="width:min(520px, 100%); background:#fff; border-radius:16px; border:1px solid #e5e7eb; box-shadow:0 20px 50px rgba(0,0,0,.18);">
-            <div style="padding:14px 16px; border-bottom:1px solid #e5e7eb; display:flex; justify-content:space-between; align-items:center;">
+    <div id="newFolderModal" class="hidden"
+        style="position:fixed; inset:0; background:rgba(15,23,42,.5); z-index:50; align-items:center; justify-content:center; padding:18px;">
+        <div
+            style="width:min(520px, 100%); background:#fff; border-radius:16px; border:1px solid #e5e7eb; box-shadow:0 20px 50px rgba(0,0,0,.18);">
+            <div
+                style="padding:14px 16px; border-bottom:1px solid #e5e7eb; display:flex; justify-content:space-between; align-items:center;">
                 <strong>New folder</strong>
                 <button type="button" class="btn" onclick="closeModal('newFolderModal')">Close</button>
             </div>
@@ -823,7 +821,7 @@
                 <div style="display:flex; flex-direction:column; gap:8px;">
                     <label>Name</label>
                     <input type="text" name="name" maxlength="120" required
-                           style="padding:10px 12px; border:1px solid #d1d5db; border-radius:10px; width:100%;">
+                        style="padding:10px 12px; border:1px solid #d1d5db; border-radius:10px; width:100%;">
                 </div>
                 <div style="display:flex; justify-content:flex-end; gap:8px; margin-top:16px;">
                     <button type="button" class="btn" onclick="closeModal('newFolderModal')">Cancel</button>
@@ -834,19 +832,22 @@
     </div>
 
     {{-- Rename folder modal --}}
-    <div id="renameFolderModal" class="hidden" style="position:fixed; inset:0; background:rgba(15,23,42,.5); z-index:50; align-items:center; justify-content:center; padding:18px;">
-        <div style="width:min(520px, 100%); background:#fff; border-radius:16px; border:1px solid #e5e7eb; box-shadow:0 20px 50px rgba(0,0,0,.18);">
-            <div style="padding:14px 16px; border-bottom:1px solid #e5e7eb; display:flex; justify-content:space-between; align-items:center;">
+    <div id="renameFolderModal" class="hidden"
+        style="position:fixed; inset:0; background:rgba(15,23,42,.5); z-index:50; align-items:center; justify-content:center; padding:18px;">
+        <div
+            style="width:min(520px, 100%); background:#fff; border-radius:16px; border:1px solid #e5e7eb; box-shadow:0 20px 50px rgba(0,0,0,.18);">
+            <div
+                style="padding:14px 16px; border-bottom:1px solid #e5e7eb; display:flex; justify-content:space-between; align-items:center;">
                 <strong>Rename folder</strong>
                 <button type="button" class="btn" onclick="closeModal('renameFolderModal')">Close</button>
             </div>
             <form id="renameFolderForm" method="POST" style="padding:16px;">
                 @csrf
-                @method('PUT')
+                {{-- @method('PUT') --}}
                 <div style="display:flex; flex-direction:column; gap:8px;">
                     <label>Name</label>
                     <input id="renameFolderName" type="text" name="name" maxlength="120" required
-                           style="padding:10px 12px; border:1px solid #d1d5db; border-radius:10px; width:100%;">
+                        style="padding:10px 12px; border:1px solid #d1d5db; border-radius:10px; width:100%;">
                 </div>
                 <div style="display:flex; justify-content:flex-end; gap:8px; margin-top:16px;">
                     <button type="button" class="btn" onclick="closeModal('renameFolderModal')">Cancel</button>
@@ -857,9 +858,12 @@
     </div>
 
     {{-- Rename file modal --}}
-    <div id="renameFileModal" class="hidden" style="position:fixed; inset:0; background:rgba(15,23,42,.5); z-index:50; align-items:center; justify-content:center; padding:18px;">
-        <div style="width:min(520px, 100%); background:#fff; border-radius:16px; border:1px solid #e5e7eb; box-shadow:0 20px 50px rgba(0,0,0,.18);">
-            <div style="padding:14px 16px; border-bottom:1px solid #e5e7eb; display:flex; justify-content:space-between; align-items:center;">
+    <div id="renameFileModal" class="hidden"
+        style="position:fixed; inset:0; background:rgba(15,23,42,.5); z-index:50; align-items:center; justify-content:center; padding:18px;">
+        <div
+            style="width:min(520px, 100%); background:#fff; border-radius:16px; border:1px solid #e5e7eb; box-shadow:0 20px 50px rgba(0,0,0,.18);">
+            <div
+                style="padding:14px 16px; border-bottom:1px solid #e5e7eb; display:flex; justify-content:space-between; align-items:center;">
                 <strong>Rename file</strong>
                 <button type="button" class="btn" onclick="closeModal('renameFileModal')">Close</button>
             </div>
@@ -869,7 +873,7 @@
                 <div style="display:flex; flex-direction:column; gap:8px;">
                     <label>Name</label>
                     <input id="renameFileName" type="text" name="name" maxlength="120" required
-                           style="padding:10px 12px; border:1px solid #d1d5db; border-radius:10px; width:100%;">
+                        style="padding:10px 12px; border:1px solid #d1d5db; border-radius:10px; width:100%;">
                 </div>
                 <div style="display:flex; justify-content:flex-end; gap:8px; margin-top:16px;">
                     <button type="button" class="btn" onclick="closeModal('renameFileModal')">Cancel</button>
@@ -880,9 +884,12 @@
     </div>
 
     {{-- Alt modal --}}
-    <div id="altModal" class="hidden" style="position:fixed; inset:0; background:rgba(15,23,42,.5); z-index:50; align-items:center; justify-content:center; padding:18px;">
-        <div style="width:min(520px, 100%); background:#fff; border-radius:16px; border:1px solid #e5e7eb; box-shadow:0 20px 50px rgba(0,0,0,.18);">
-            <div style="padding:14px 16px; border-bottom:1px solid #e5e7eb; display:flex; justify-content:space-between; align-items:center;">
+    <div id="altModal" class="hidden"
+        style="position:fixed; inset:0; background:rgba(15,23,42,.5); z-index:50; align-items:center; justify-content:center; padding:18px;">
+        <div
+            style="width:min(520px, 100%); background:#fff; border-radius:16px; border:1px solid #e5e7eb; box-shadow:0 20px 50px rgba(0,0,0,.18);">
+            <div
+                style="padding:14px 16px; border-bottom:1px solid #e5e7eb; display:flex; justify-content:space-between; align-items:center;">
                 <strong>Alt text</strong>
                 <button type="button" class="btn" onclick="closeModal('altModal')">Close</button>
             </div>
@@ -892,7 +899,7 @@
                 <div style="display:flex; flex-direction:column; gap:8px;">
                     <label>Alt text</label>
                     <textarea id="altTextInput" name="alt" rows="4"
-                              style="padding:10px 12px; border:1px solid #d1d5db; border-radius:10px; width:100%; resize:vertical;"></textarea>
+                        style="padding:10px 12px; border:1px solid #d1d5db; border-radius:10px; width:100%; resize:vertical;"></textarea>
                 </div>
                 <div style="display:flex; justify-content:flex-end; gap:8px; margin-top:16px;">
                     <button type="button" class="btn" onclick="closeModal('altModal')">Cancel</button>
@@ -956,20 +963,25 @@
         function selectMedia(id, url, name, alt) {
             if (window.opener && !window.opener.closed) {
                 window.opener.postMessage({
-                    media_selected: { id, url, name, alt }
+                    media_selected: {
+                        id,
+                        url,
+                        name,
+                        alt
+                    }
                 }, '*');
             }
             window.close();
         }
 
         function closeAllMenus(except = null) {
-            document.querySelectorAll('.menu.open').forEach(function (menu) {
+            document.querySelectorAll('.menu.open').forEach(function(menu) {
                 if (except && menu === except) return;
                 menu.classList.remove('open');
             });
         }
 
-        document.addEventListener('click', function (e) {
+        document.addEventListener('click', function(e) {
             const toggler = e.target.closest('.menu-toggle');
             const insideMenu = e.target.closest('.menu');
 
@@ -993,7 +1005,7 @@
             }
         });
 
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             const uploadForm = document.getElementById('uploadForm');
             const fileInput = document.getElementById('fileInput');
             const uploadError = document.getElementById('uploadError');
@@ -1018,7 +1030,7 @@
             }
 
             if (uploadForm && fileInput && uploadError) {
-                uploadForm.addEventListener('submit', function (e) {
+                uploadForm.addEventListener('submit', function(e) {
                     if (!fileInput.files || fileInput.files.length === 0) {
                         e.preventDefault();
                         uploadError.classList.remove('hidden');
@@ -1029,23 +1041,23 @@
             }
 
             if (fileInput) {
-                fileInput.addEventListener('change', function () {
+                fileInput.addEventListener('change', function() {
                     if (uploadError) uploadError.classList.add('hidden');
                     renderSelectedFiles(fileInput.files);
                 });
             }
 
             if (dropZone && fileInput) {
-                dropZone.addEventListener('dragover', function (e) {
+                dropZone.addEventListener('dragover', function(e) {
                     e.preventDefault();
                     dropZone.classList.add('drag-over');
                 });
 
-                dropZone.addEventListener('dragleave', function () {
+                dropZone.addEventListener('dragleave', function() {
                     dropZone.classList.remove('drag-over');
                 });
 
-                dropZone.addEventListener('drop', function (e) {
+                dropZone.addEventListener('drop', function(e) {
                     e.preventDefault();
                     dropZone.classList.remove('drag-over');
 
@@ -1056,6 +1068,26 @@
                 });
             }
         });
+        fileInput.addEventListener('change', function() {
+
+            const maxSize = 8 * 1024 * 1024;
+
+            for (const file of fileInput.files) {
+
+                if (file.size > maxSize) {
+
+                    alert(
+                        `File "${file.name}" vượt quá giới hạn 8MB`
+                    );
+
+                    fileInput.value = '';
+                    return;
+                }
+            }
+
+            renderSelectedFiles(fileInput.files);
+        });
     </script>
 </body>
+
 </html>

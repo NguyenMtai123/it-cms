@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Platform\Core\ACL\Models\Role;
 use Platform\Core\ACL\Repositories\UserRepository;
 use Platform\Core\ACL\Services\UserService;
+use Platform\Core\ACL\Models\User;
 
 class UserController extends Controller
 {
@@ -18,12 +19,11 @@ class UserController extends Controller
 
     public function index()
     {
-        $users = $this->repository->paginate();
+        $users = User::with('roles')
+            ->latest()
+            ->paginate(10);
 
-        return view(
-            'acl::users.index',
-            compact('users')
-        );
+        return view('acl::users.index', compact('users'));
     }
 
     public function create()
@@ -50,34 +50,18 @@ class UserController extends Controller
 
     public function edit(int $id)
     {
-        $user = $this->repository->find($id);
-
-        if (!$user) {
-            abort(404);
-        }
+        $user = User::with('roles')->findOrFail($id);
 
         $roles = Role::all();
 
-        return view(
-            'acl::users.edit',
-            compact('user', 'roles')
-        );
+        return view('acl::users.edit', compact('user', 'roles'));
     }
 
-    public function update(
-        Request $request,
-        int $id
-    ) {
-        $user = $this->repository->find($id);
+    public function update(Request $request, int $id)
+    {
+        $user = User::findOrFail($id);
 
-        if (!$user) {
-            abort(404);
-        }
-
-        $this->service->update(
-            $user,
-            $request->all()
-        );
+        $this->service->update($user, $request->all());
 
         return redirect()
             ->route('users.index')
@@ -86,11 +70,7 @@ class UserController extends Controller
 
     public function destroy(int $id)
     {
-        $user = $this->repository->find($id);
-
-        if (!$user) {
-            abort(404);
-        }
+        $user = User::findOrFail($id);
 
         $user->delete();
 

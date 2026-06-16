@@ -26,6 +26,11 @@ class SettingsController extends Controller
         );
 
         Setting::set(
+            'site_slogan',
+            $request->site_slogan
+        );
+
+        Setting::set(
             'admin_email',
             $request->admin_email
         );

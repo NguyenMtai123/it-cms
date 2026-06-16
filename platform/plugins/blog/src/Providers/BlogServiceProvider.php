@@ -2,6 +2,7 @@
 
 namespace Platform\Plugins\Blog\Providers;
 
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 use Platform\Plugins\Blog\Models\Category;
 use Platform\Plugins\Blog\Models\Post;
@@ -10,14 +11,14 @@ class BlogServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
-            $permissions = require __DIR__ . '/../../config/permissions.php';
+        $permissions = require __DIR__ . '/../../config/permissions.php';
 
-            config([
-                'acl.permissions' => array_merge(
-                    config('acl.permissions', []),
-                    $permissions
-                ),
-            ]);
+        config([
+            'acl.permissions' => array_merge(
+                config('acl.permissions', []),
+                $permissions
+            ),
+        ]);
     }
 
     public function boot(): void
@@ -51,15 +52,19 @@ class BlogServiceProvider extends ServiceProvider
                 ],
             ],
         ]);
-        dashboard_widget([
-            'title' => 'Posts',
-            'value' => Post::count(),
-            'icon' => 'newspaper'
-        ]);
-        dashboard_widget([
-            'title' => 'Categories',
-            'value' => Category::count(),
-            'icon' => 'folder',
-        ]);
+        if (Schema::hasTable('posts')) {
+            dashboard_widget([
+                'title' => 'Posts',
+                'value' => Post::count(),
+                'icon' => 'newspaper'
+            ]);
+        }
+        if (Schema::hasTable('categories')) {
+            dashboard_widget([
+                'title' => 'Categories',
+                'value' => Category::count(),
+                'icon' => 'folder',
+            ]);
+        }
     }
 }

@@ -1,0 +1,7 @@
+{
+  "name": "Event",
+  "slug": "event",
+  "version": "1.0.0",
+  "description": "Event system for CMS",
+  "provider": "Platform\\Plugins\\Event\\Providers\\EventServiceProvider"
+}

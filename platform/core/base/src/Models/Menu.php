@@ -21,8 +21,9 @@ class Menu extends Model
         'is_active' => 'boolean',
     ];
 
-    public function items(): HasMany
+    public function items()
     {
-        return $this->hasMany(MenuItem::class, 'menu_id');
+        return $this->hasMany(MenuItem::class)
+            ->orderBy('order');
     }
 }

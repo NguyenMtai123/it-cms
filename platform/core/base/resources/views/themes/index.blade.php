@@ -10,12 +10,6 @@
         <h3 class="mb-0">Theme Manager</h3>
     </div>
 
-    @if(session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
-    @endif
-
     <div class="row">
         @foreach($themes as $theme)
             <div class="col-md-4 mb-3">

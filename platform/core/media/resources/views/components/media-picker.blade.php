@@ -32,7 +32,7 @@
 
                 <i class="fas fa-image fa-3x mb-2"></i>
 
-                <div>Click để chọn ảnh</div>
+                <div>Click để chọn tệp</div>
 
             </div>
 
@@ -52,7 +52,7 @@
             onclick="openMediaPicker('{{ $name }}')">
 
             <i class="fas fa-folder-open mr-1"></i>
-            Chọn ảnh
+            Chọn tệp
 
         </button>
 

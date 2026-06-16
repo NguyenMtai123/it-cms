@@ -14,6 +14,7 @@ class Category extends Model
         'description',
         'parent_id',
         'status',
+        'sort_order',
     ];
 
     protected $casts = [
@@ -30,7 +31,7 @@ class Category extends Model
         );
     }
     public function parent()
-{
-    return $this->belongsTo(self::class, 'parent_id');
-}
+    {
+        return $this->belongsTo(self::class, 'parent_id');
+    }
 }

@@ -1,0 +1,7 @@
+{
+    "name": "Admission",
+    "slug": "admission",
+    "version": "1.0.0",
+    "description": "Homepage Admission",
+    "provider": "Platform\\Plugins\\Admission\\Providers\\AdmissionServiceProvider"
+}

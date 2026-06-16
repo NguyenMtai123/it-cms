@@ -1,0 +1,7 @@
+{
+    "name": "About Link",
+    "slug": "about-link",
+    "version": "1.0.0",
+    "description": "Homepage About Links",
+    "provider": "Platform\\Plugins\\AboutLink\\Providers\\AboutLinkServiceProvider"
+}

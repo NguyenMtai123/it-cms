@@ -43,9 +43,6 @@
                             <option value="footer">
                                 Footer
                             </option>
-                            <option value="main">
-                                Main
-                            </option>
                         </select>
                     </div>
 

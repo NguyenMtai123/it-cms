@@ -1,0 +1,7 @@
+{
+    "name": "Footer",
+    "slug": "footer",
+    "version": "1.0.0",
+    "description": "Footer NTU",
+    "provider": "Platform\\Plugins\\Footer\\Providers\\FooterServiceProvider"
+}

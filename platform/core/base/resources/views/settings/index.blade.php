@@ -7,13 +7,6 @@
 @endsection
 
 @section('content')
-
-    @if (session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
-    @endif
-
     <form method="POST" action="{{ route('settings.save') }}">
 
         @csrf
@@ -37,7 +30,8 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>Admin Email</label>
-                            <input type="email" name="admin_email" class="form-control" value="{{ setting('admin_email') }}">
+                            <input type="email" name="admin_email" class="form-control"
+                                value="{{ setting('admin_email') }}">
                         </div>
                     </div>
                 </div>
@@ -46,6 +40,12 @@
                 <div class="form-group">
                     <label>Site Description</label>
                     <textarea name="site_description" class="form-control">{{ setting('site_description') }}</textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Site Slogan</label>
+
+                    <input type="text" name="site_slogan" class="form-control" value="{{ setting('site_slogan') }}">
                 </div>
 
                 <!-- Hàng 3: Logo và Favicon cùng hàng -->

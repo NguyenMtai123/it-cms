@@ -1,0 +1,7 @@
+{
+    "name": "Quick Link",
+    "slug": "quick-link",
+    "version": "1.0.0",
+    "description": "Homepage quick links",
+    "provider": "Platform\\Plugins\\QuickLink\\Providers\\QuickLinkServiceProvider"
+}

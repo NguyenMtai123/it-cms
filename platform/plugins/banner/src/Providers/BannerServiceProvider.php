@@ -2,6 +2,7 @@
 
 namespace Platform\Plugins\Banner\Providers;
 
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 use Platform\Plugins\Banner\Models\Banner;
 
@@ -38,11 +39,13 @@ class BannerServiceProvider extends ServiceProvider
             'icon' => 'fas fa-images',
             'url' => '/admin/banner',
         ]);
-        dashboard_widget([
-            'title' => 'Banner',
-            'value' => Banner::count(),
-            'icon' => 'newspaper'
-        ]);
+        if (Schema::hasTable('banners')) {
+            dashboard_widget([
+                'title' => 'Banner',
+                'value' => Banner::count(),
+                'icon' => 'newspaper'
+            ]);
+        }
     }
 
 }

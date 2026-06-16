@@ -6,11 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>@yield('title', setting('site_title', 'IT CMS'))</title>
+
+    @if (setting('site_favicon'))
+        <link rel="icon" href="{{ asset(setting('site_favicon')) }}">
+    @endif
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <style>
         :root {
             --primary: #0d6efd;
@@ -28,6 +33,11 @@
 
         a {
             text-decoration: none;
+        }
+
+        html,
+        body {
+            overflow-x: hidden;
         }
 
         .site-content {
@@ -198,6 +208,15 @@
             position: relative;
         }
 
+        .search-btn {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            border: none;
+            background: none;
+        }
+
         .search-box input {
             width: 100%;
             height: 38px;
@@ -240,7 +259,8 @@
 
         .header-links a {
             color: #333;
-            font-size: 13px;
+            font-size: 14px;
+            font-weight: 400;
         }
 
         /* =========================
@@ -256,7 +276,7 @@
             color: #fff !important;
             font-size: 16px;
             font-weight: 600;
-            padding: 16px 18px !important;
+            padding: 13px 13px !important;
         }
 
         .navbar-nav .nav-link:hover {
@@ -339,6 +359,33 @@
         .post-content * {
             max-width: 100%;
         }
+
+        .page-breadcrumb {
+            background: #fff;
+            border-bottom: 1px solid #e5e7eb;
+            padding: 10px 0;
+        }
+
+        .page-breadcrumb a {
+            color: #333;
+            text-decoration: none;
+        }
+
+        .page-breadcrumb span {
+            margin: 0 6px;
+        }
+
+        .page-breadcrumb .active {
+            color: #ef4444;
+            font-weight: 600;
+        }
+
+        .menu-home-icon {
+            width: 24px;
+            height: 24px;
+            object-fit: contain;
+            vertical-align: middle;
+        }
     </style>
 
     @stack('styles')
@@ -348,29 +395,49 @@
     @include('theme::partials.top-header')
     @include('theme::partials.header')
     @include('theme::partials.navbar')
+    @if (isset($page))
+        @include('theme::partials.breadcrumb')
+    @endif
     @if (isset($sliders))
         @include('theme::partials.slider')
     @endif
 
-    <main class="site-content py-4 py-lg-5">
+    <main class="site-content pt-4">
         <div class="container">
+
             @yield('before-content')
 
-            <div class="row g-4 mt-3">
-                <div class="col-lg-8">
-                    @yield('content')
-                </div>
+            @hasSection('sidebar')
+                <div class="row g-4 mt-3">
 
-                <div class="col-lg-4">
-                    @include('theme::partials.sidebar')
+                    <div class="col-lg-8">
+                        @yield('content')
+                    </div>
+
+                    <div class="col-lg-4">
+                        @yield('sidebar')
+                    </div>
+
                 </div>
-            </div>
+            @else
+                @yield('content')
+            @endif
+
         </div>
     </main>
-
     @include('theme::partials.footer')
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            new bootstrap.Carousel(document.querySelector('#homeSlider'), {
+                interval: 3000,
+                ride: 'carousel'
+            });
+        });
+    </script>
     @stack('scripts')
 </body>
 

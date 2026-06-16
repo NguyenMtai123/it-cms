@@ -19,7 +19,9 @@ class PageController extends Controller
 
     public function create()
     {
-        return view('page::admin.create');
+        $pages = Page::orderBy('title')->get();
+
+        return view('page::admin.create', compact('pages'));
     }
 
     public function store(Request $request)
@@ -30,8 +32,10 @@ class PageController extends Controller
             'excerpt' => ['nullable', 'string'],
             'content' => ['nullable', 'string'],
             'image' => ['nullable', 'string'],
+            'file' => ['nullable', 'string'],
             'status' => ['nullable', 'boolean'],
             'published_at' => ['nullable', 'date'],
+            'parent_id' => ['nullable', 'exists:pages,id'],
         ]);
 
         $status = $request->boolean('status');
@@ -57,7 +61,9 @@ class PageController extends Controller
             'excerpt' => $data['excerpt'] ?? null,
             'content' => $data['content'] ?? null,
             'image' => $data['image'] ?? null,
+            'file' => $data['file'] ?? null,
             'status' => $status,
+            'parent_id' => $data['parent_id'] ?? null,
             'published_at' => $publishedAt,
         ]);
 
@@ -70,7 +76,14 @@ class PageController extends Controller
     {
         $page = Page::findOrFail($id);
 
-        return view('page::admin.edit', compact('page'));
+        $pages = Page::where('id', '!=', $id)
+            ->orderBy('title')
+            ->get();
+
+        return view(
+            'page::admin.edit',
+            compact('page', 'pages')
+        );
     }
 
     public function update(Request $request, int $id)
@@ -83,8 +96,10 @@ class PageController extends Controller
             'excerpt' => ['nullable', 'string'],
             'content' => ['nullable', 'string'],
             'image' => ['nullable', 'string'],
+            'file' => ['nullable', 'string'],
             'status' => ['nullable', 'boolean'],
             'published_at' => ['nullable', 'date'],
+            'parent_id' => ['nullable', 'exists:pages,id'],
         ]);
 
         $status = $request->boolean('status');
@@ -108,6 +123,8 @@ class PageController extends Controller
             'excerpt' => $data['excerpt'] ?? null,
             'content' => $data['content'] ?? null,
             'image' => $data['image'] ?? null,
+            'file' => $data['file'] ?? null,
+            'parent_id' => $data['parent_id'] ?? null,
             'status' => $status,
             'published_at' => $publishedAt,
         ]);

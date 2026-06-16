@@ -59,11 +59,6 @@
             <a href="#" class="nav-link text-danger" data-toggle="modal" data-target="#logoutModal">
                         <i class="fas fa-sign-out-alt"></i>
                     </a>
-            {{-- <a href="{{ url('/logout') }}"
-                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
-                        class="nav-link text-danger">
-                       <i class="fas fa-sign-out-alt"></i>
-                    </a> --}}
 
         </li>
 

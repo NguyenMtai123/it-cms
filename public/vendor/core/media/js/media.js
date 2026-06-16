@@ -183,3 +183,23 @@ document.addEventListener('click', function () {
     document.querySelectorAll('.media-mini-menu.open').forEach(m => m.classList.remove('open'));
     document.querySelectorAll('.media-tree-item.menu-open').forEach(i => i.classList.remove('menu-open'));
 });
+
+fileInput.addEventListener('change', function () {
+
+    const maxSize = 8 * 1024 * 1024;
+
+    for (const file of fileInput.files) {
+
+        if (file.size > maxSize) {
+
+            alert(
+                `File "${file.name}" vượt quá giới hạn 8MB`
+            );
+
+            fileInput.value = '';
+            return;
+        }
+    }
+
+    renderSelectedFiles(fileInput.files);
+});

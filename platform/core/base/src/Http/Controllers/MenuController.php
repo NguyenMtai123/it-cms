@@ -7,6 +7,7 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Str;
 use Platform\Core\Base\Models\Menu;
 use Platform\Core\Base\Models\MenuItem;
+use Platform\Packages\Page\Models\Page;
 
 class MenuController extends Controller
 {
@@ -47,71 +48,164 @@ class MenuController extends Controller
         $items = MenuItem::where('menu_id', $id)
             ->whereNull('parent_id')
             ->orderBy('order')
-            ->with('children')
+            ->with([
+                'children' => function ($q) {
+                    $q->orderBy('order');
+                }
+            ])
             ->paginate(8);
 
-        return view('base::menus.edit', compact('menu', 'items'));
-    }
+        $pages = Page::orderBy('title')->get();
 
+        return view(
+            'base::menus.edit',
+            compact(
+                'menu',
+                'items',
+                'pages'
+            )
+        );
+    }
     public function storeItem(Request $request, $menuId)
     {
         $request->validate([
             'label' => 'required|string|max:255',
         ]);
 
+        $page = null;
+
+        if ($request->page_id) {
+
+            $page = Page::find($request->page_id);
+
+        }
+
         MenuItem::create([
+
             'menu_id' => $menuId,
+
             'parent_id' => $request->parent_id ?: null,
+
             'label' => $request->label,
 
-            'url' => $request->url
-                ? $request->url
-                : '/' . Str::slug($request->label),
+            'page_id' => $request->page_id,
 
-            'type' => 'custom',
+            'url' => $page
+                ? $page->url
+                : $request->url,
+
+            'type' => $page
+                ? 'page'
+                : 'custom',
+
             'order' => $request->order ?? 999,
+
             'target_blank' => $request->boolean('target_blank'),
+
             'is_active' => true,
         ]);
 
-        return back()->with('success', 'Đã thêm menu item');
+        return back()->with(
+            'success',
+            'Đã thêm menu item'
+        );
     }
+    // public function storeItem(Request $request, $menuId)
+    // {
+    //     $request->validate([
+    //         'label' => 'required|string|max:255',
+    //     ]);
+
+    //     MenuItem::create([
+    //         'menu_id' => $menuId,
+    //         'parent_id' => $request->parent_id ?: null,
+    //         'label' => $request->label,
+
+    //         'url' => $request->url
+    //             ? $request->url
+    //             : '/' . Str::slug($request->label),
+
+    //         'type' => 'custom',
+    //         'order' => $request->order ?? 999,
+    //         'target_blank' => $request->boolean('target_blank'),
+    //         'is_active' => true,
+    //     ]);
+
+    //     return back()->with('success', 'Đã thêm menu item');
+    // }
 
     public function updateOrder(Request $request)
     {
         foreach ($request->items as $item) {
-            MenuItem::where('id', $item['id'])
-                ->update(['order' => $item['order']]);
+            MenuItem::where('id', $item['id'])->update([
+                'order' => $item['order'],
+                'parent_id' => $item['parent_id'],
+            ]);
         }
 
-        return response()->json(['status' => true]);
+        return response()->json([
+            'status' => true,
+        ]);
     }
-
     public function editItem($id)
     {
-        $item = MenuItem::findOrFail($id);
+        $item = MenuItem::with('page')
+            ->findOrFail($id);
 
-        return response()->json($item);
+        $parents = MenuItem::where('menu_id', $item->menu_id)
+            ->whereNull('parent_id')
+            ->where('id', '!=', $item->id)
+            ->get();
+
+        return response()->json([
+            'item' => $item,
+            'parents' => $parents,
+        ]);
     }
 
     public function updateItem(Request $request, $id)
     {
+        $request->validate([
+            'label' => 'required|max:255',
+            'parent_id' => 'nullable|exists:menu_items,id',
+            'order' => 'nullable|integer',
+        ]);
         $item = MenuItem::findOrFail($id);
+        if ($request->parent_id == $item->id) {
+            return back()->withErrors([
+                'parent_id' => 'Menu không thể là cha của chính nó'
+            ]);
+        }
+        $page = null;
 
+        if ($request->page_id) {
+
+            $page = Page::find($request->page_id);
+
+        }
         $item->update([
+
             'label' => $request->label,
 
-            'url' => $request->url
-                ?: '/' . \Str::slug($request->label),
+            'page_id' => $request->page_id,
 
-            'parent_id' => $request->parent_id ?: null,
+            'url' => $page
+                ? $page->url
+                : $request->url,
 
-            'target_blank' => $request->boolean('target_blank'),
+            'parent_id' => $request->filled('parent_id')
+                ? $request->parent_id
+                : null,
+
+            'order' => $request->order ?? 0,
+
+            'target_blank' => $request->has('target_blank'),
         ]);
 
         return back()
             ->with('success', 'Cập nhật menu item thành công');
     }
+
 
     public function destroyItem($id)
     {
@@ -136,4 +230,5 @@ class MenuController extends Controller
             $child->delete();
         }
     }
+
 }

@@ -29,6 +29,17 @@ Route::prefix('admin/blog')
         Route::delete('/tags/{id}', [TagController::class, 'destroy']);
     });
 Route::middleware('web')->group(function () {
-Route::get('/blog', [PublicPostController::class, 'index']);
-Route::get('/blog/{slug}', [PublicPostController::class, 'show']);
- });
+
+    Route::get('/blog', [PublicPostController::class, 'index'])
+        ->name('blog.index');
+
+    Route::get('/blog/category/{slug}', [
+        PublicPostController::class,
+        'category'
+    ])->name('blog.category');
+
+    Route::get('/blog/{slug}', [
+        PublicPostController::class,
+        'show'
+    ])->name('blog.show');
+});

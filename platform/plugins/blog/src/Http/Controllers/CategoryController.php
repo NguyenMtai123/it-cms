@@ -11,44 +11,33 @@ class CategoryController extends Controller
 {
     public function index()
     {
-        $categories = Category::with('parent')->latest()->paginate(10);
-        $categoriesList = Category::whereNull('parent_id')->latest()->get();
+        $categories = Category::with('parent')
+            ->orderBy('sort_order')
+            ->paginate(10);
 
-        return view('blog::categories.index', compact('categories', 'categoriesList'));
-    }
+        $categoriesList = Category::whereNull('parent_id')
+            ->latest()
+            ->get();
 
-    public function create()
-    {
-        return view('blog::categories.create');
+        return view(
+            'blog::categories.index',
+            compact('categories', 'categoriesList')
+        );
     }
 
     public function store(CategoryRequest $request)
     {
-        $request->validate([
-            'name' => 'required',
-        ]);
-
         Category::create([
             'name' => $request->name,
             'slug' => Str::slug($request->name),
             'description' => $request->description,
             'parent_id' => $request->parent_id,
             'status' => $request->boolean('status'),
+            'sort_order' => $request->sort_order ?? 0,
         ]);
 
-        return redirect('/admin/blog/categories');
-    }
-
-    public function edit($id)
-    {
-        $category = Category::findOrFail($id);
-
-        $categories = Category::where('id', '!=', $id)->get();
-
-        return view(
-            'blog::categories.edit',
-            compact('category', 'categories')
-        );
+        return redirect('/admin/blog/categories')
+            ->with('success', 'Tạo danh mục thành công');
     }
 
     public function update(CategoryRequest $request, $id)
@@ -61,15 +50,20 @@ class CategoryController extends Controller
             'description' => $request->description,
             'parent_id' => $request->parent_id,
             'status' => $request->boolean('status'),
+            'sort_order' => $request->sort_order ?? 0,
         ]);
 
-        return redirect('/admin/blog/categories');
+        return redirect('/admin/blog/categories')
+            ->with('success', 'Cập nhật danh mục thành công');
     }
 
     public function destroy($id)
     {
-        Category::findOrFail($id)->delete();
+        $category = Category::findOrFail($id);
 
-        return back();
+        $category->delete();
+
+        return back()
+            ->with('success', 'Xóa danh mục thành công');
     }
 }

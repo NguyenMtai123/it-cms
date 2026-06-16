@@ -21,11 +21,16 @@ class RoleController extends Controller
         $query = Role::query();
 
         if ($request->keyword) {
-            $query->where('name', 'like', "%{$request->keyword}%")
-                ->orWhere('slug', 'like', "%{$request->keyword}%");
+            $query->where(function ($q) use ($request) {
+                $q->where('name', 'like', "%{$request->keyword}%")
+                    ->orWhere('slug', 'like', "%{$request->keyword}%");
+            });
         }
 
-        $roles = $query->latest()->paginate(10);
+        $roles = $query
+            ->latest()
+            ->paginate(10)
+            ->withQueryString();
 
         return view('acl::roles.index', compact('roles'));
     }
@@ -45,7 +50,9 @@ class RoleController extends Controller
             'permissions' => $permissions,
         ]);
 
-        return redirect()->route('roles.index');
+        return redirect()
+            ->route('roles.index')
+            ->with('success', 'Tạo vai trò thành công');
     }
 
     public function edit(int $id)
@@ -78,7 +85,8 @@ class RoleController extends Controller
         ]);
 
         return redirect()
-            ->route('roles.index');
+            ->route('roles.index')
+            ->with('success', 'Cập nhật vai trò thành công');
     }
 
     public function destroy(int $id)
@@ -88,7 +96,7 @@ class RoleController extends Controller
         $role->delete();
 
         return redirect()
-            ->route('roles.index');
+            ->route('roles.index')
+            ->with('success', 'Xóa vai trò thành công');
     }
-
 }

@@ -11,16 +11,15 @@ class RoleService
     ) {
     }
 
-   public function create(array $data)
-{
-    $permissions = [];
+    public function create(array $data)
+    {
+        // $permissions = [];
 
-    foreach ($data['permissions'] ?? [] as $permission) {
-        $permissions[$permission] = true;
+        // foreach ($data['permissions'] ?? [] as $permission) {
+        //     $permissions[$permission] = true;
+        // }
+
+        // $data['permissions'] = $permissions;
+        return $this->repository->create($data);
     }
-
-    $data['permissions'] = $permissions;
-
-    return $this->repository->create($data);
-}
 }

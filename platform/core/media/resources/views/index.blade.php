@@ -18,25 +18,19 @@
             <a class="btn btn-outline-secondary btn-sm" href="{{ route('media.index') }}">
                 <i class="fas fa-sync-alt mr-1"></i> Refresh
             </a>
-            <a class="btn btn-sm btn-outline-secondary"
-       href="{{ route('media.picker') }}"
-       target="_blank">
-        Open picker
-    </a>
+            <a class="btn btn-sm btn-outline-secondary" href="{{ route('media.picker') }}" target="_blank">
+                Open picker
+            </a>
         </div>
     </div>
 @endsection
 
 @section('content')
-    @if(session('success'))
-        <div class="alert alert-success">{{ session('success') }}</div>
-    @endif
-
     <div class="media-header-bar">
         <div class="media-breadcrumbs">
-            @foreach($breadcrumbs as $breadcrumb)
+            @foreach ($breadcrumbs as $breadcrumb)
                 <a href="{{ $breadcrumb['url'] }}">{{ $breadcrumb['name'] }}</a>
-                @if(! $loop->last)
+                @if (!$loop->last)
                     <span>/</span>
                 @endif
             @endforeach
@@ -48,26 +42,19 @@
                 New folder
             </a>
 
-            @if($currentFolder)
-                <button
-                    type="button"
-                    class="btnx"
+            @if ($currentFolder)
+                <button type="button" class="btnx"
                     onclick="openRenameFolderModal(
                         {{ $currentFolder->id }},
                         @js($currentFolder->name),
                         @js(route('media.folders.rename', $currentFolder->id))
-                    )"
-                >
+                    )">
                     <i class="fas fa-pen"></i>
                     Rename folder
                 </button>
 
-                <form
-                    method="POST"
-                    action="{{ route('media.folders.destroy', $currentFolder->id) }}"
-                    onsubmit="return confirm('Delete this folder and all children?')"
-                    class="m-0"
-                >
+                <form method="POST" action="{{ route('media.folders.destroy', $currentFolder->id) }}"
+                    onsubmit="return confirm('Delete this folder and all children?')" class="m-0">
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="btnx danger">
@@ -93,15 +80,13 @@
             </div>
 
             <div class="media-tree-wrap">
-                <a
-                    class="media-tree-root {{ (int)$currentFolderId === 0 ? 'active' : '' }}"
-                    href="{{ route('media.index') }}"
-                >
+                <a class="media-tree-root {{ (int) $currentFolderId === 0 ? 'active' : '' }}"
+                    href="{{ route('media.index') }}">
                     <i class="fas fa-folder-open text-warning mr-2"></i>
                     All media
                 </a>
 
-                @if($rootFolders->count())
+                @if ($rootFolders->count())
                     @include('media::partials.folder-tree', [
                         'folders' => $rootFolders,
                         'currentFolderId' => $currentFolderId,
@@ -115,56 +100,47 @@
         </aside>
 
         <main class="media-card media-main">
-<div class="upload-box">
-    <form id="uploadForm"
-          method="POST"
-          action="{{ route('media.upload') }}"
-          enctype="multipart/form-data">
-        @csrf
+            <div class="upload-box">
+                <form id="uploadForm" method="POST" action="{{ route('media.upload') }}" enctype="multipart/form-data">
+                    @csrf
 
-        <input type="hidden" name="folder_id" value="{{ $currentFolderId }}">
+                    <input type="hidden" name="folder_id" value="{{ $currentFolderId }}">
 
-        <div class="upload-toolbar">
-            <div class="upload-title">
-                <h5 class="m-0">Upload files</h5>
-                <span class="text-muted small">Kéo thả hoặc chọn file</span>
+                    <div class="upload-toolbar">
+                        <div class="upload-title">
+                            <h5 class="m-0">Upload files</h5>
+                            <span class="text-muted small">Kéo thả hoặc chọn file</span>
+                        </div>
+
+                        <div class="upload-actions">
+                            <label for="fileInput" class="btn-file">
+                                <i class="fas fa-paperclip"></i>
+                                Chọn file
+                            </label>
+
+                            <span id="selectedFiles" class="selected-files">
+                                Chưa chọn file
+                            </span>
+
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-upload mr-1"></i>
+                                Upload
+                            </button>
+                        </div>
+                    </div>
+
+                    <input type="file" name="file[]" multiple id="fileInput" hidden>
+
+                    <div id="dropZone" class="drop-zone compact">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <span>Kéo file vào đây để upload</span>
+                    </div>
+
+                    <div id="uploadError" class="text-danger mt-2" style="display:none;">
+                        Please select at least one file
+                    </div>
+                </form>
             </div>
-
-            <div class="upload-actions">
-                <label for="fileInput" class="btn-file">
-                    <i class="fas fa-paperclip"></i>
-                    Chọn file
-                </label>
-
-                <span id="selectedFiles" class="selected-files">
-                    Chưa chọn file
-                </span>
-
-                <button type="submit" class="btn btn-primary">
-                    <i class="fas fa-upload mr-1"></i>
-                    Upload
-                </button>
-            </div>
-        </div>
-
-        <input
-            type="file"
-            name="file[]"
-            multiple
-            id="fileInput"
-            hidden
-        >
-
-        <div id="dropZone" class="drop-zone compact">
-            <i class="fas fa-cloud-upload-alt"></i>
-            <span>Kéo file vào đây để upload</span>
-        </div>
-
-        <div id="uploadError" class="text-danger mt-2" style="display:none;">
-            Please select at least one file
-        </div>
-    </form>
-</div>
 
             <div class="media-section-title mt-4">Current folder items</div>
             <div class="media-section-subtitle mb-3">
@@ -175,41 +151,42 @@
                 $items = collect();
 
                 foreach ($folders as $folder) {
-                    $items->push((object) [
-                        'type' => 'folder',
-                        'id' => $folder->id,
-                        'name' => $folder->name,
-                        'size' => null,
-                        'mime_type' => null,
-                        'url' => null,
-                        'alt' => null,
-                        'model' => $folder,
-                    ]);
+                    $items->push(
+                        (object) [
+                            'type' => 'folder',
+                            'id' => $folder->id,
+                            'name' => $folder->name,
+                            'size' => null,
+                            'mime_type' => null,
+                            'url' => null,
+                            'alt' => null,
+                            'model' => $folder,
+                        ],
+                    );
                 }
 
                 foreach ($files as $file) {
-                    $items->push((object) [
-                        'type' => 'file',
-                        'id' => $file->id,
-                        'name' => $file->name,
-                        'size' => $file->size,
-                        'mime_type' => $file->mime_type,
-                        'url' => $file->url,
-                        'alt' => $file->alt,
-                        'model' => $file,
-                    ]);
+                    $items->push(
+                        (object) [
+                            'type' => 'file',
+                            'id' => $file->id,
+                            'name' => $file->name,
+                            'size' => $file->size,
+                            'mime_type' => $file->mime_type,
+                            'url' => $file->url,
+                            'alt' => $file->alt,
+                            'model' => $file,
+                        ],
+                    );
                 }
             @endphp
 
-            @if($items->count())
+            @if ($items->count())
                 <div class="media-grid">
-                    @foreach($items as $item)
-                        @if($item->type === 'folder')
+                    @foreach ($items as $item)
+                        @if ($item->type === 'folder')
                             <div class="media-item folder">
-                                <a
-                                    href="{{ route('media.index', ['folder_id' => $item->id]) }}"
-                                    class="media-item-link"
-                                >
+                                <a href="{{ route('media.index', ['folder_id' => $item->id]) }}" class="media-item-link">
                                     <div class="media-thumb folder-thumb">
                                         <i class="fas fa-folder fa-2x text-warning"></i>
                                     </div>
@@ -226,32 +203,23 @@
                                     </button>
 
                                     <div class="media-mini-menu-panel">
-                                        <button
-                                            type="button"
-                                            class="media-mini-menu-item"
-                                            onclick="window.location='{{ route('media.index', ['folder_id' => $item->id]) }}'"
-                                        >
+                                        <button type="button" class="media-mini-menu-item"
+                                            onclick="window.location='{{ route('media.index', ['folder_id' => $item->id]) }}'">
                                             <i class="fas fa-folder-open mr-2"></i> Open
                                         </button>
 
-                                        <button
-                                            type="button"
-                                            class="media-mini-menu-item"
+                                        <button type="button" class="media-mini-menu-item"
                                             onclick="openRenameFolderModal(
                                                 {{ $item->id }},
                                                 @js($item->name),
                                                 @js(route('media.folders.rename', $item->id))
-                                            )"
-                                        >
+                                            )">
                                             <i class="fas fa-pen mr-2"></i> Rename
                                         </button>
 
-                                        <form
-                                            method="POST"
-                                            action="{{ route('media.folders.destroy', $item->id) }}"
+                                        <form method="POST" action="{{ route('media.folders.destroy', $item->id) }}"
                                             onsubmit="return confirm('Delete this folder and all children?')"
-                                            class="m-0"
-                                        >
+                                            class="m-0">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="media-mini-menu-item danger">
@@ -268,17 +236,10 @@
                             @endphp
 
                             <div class="media-item file">
-                                <a
-                                    href="{{ $fileUrl }}"
-                                    target="_blank"
-                                    class="media-item-link"
-                                >
+                                <a href="{{ $fileUrl }}" target="_blank" class="media-item-link">
                                     <div class="media-thumb file-thumb">
-                                        @if($isImage)
-                                            <img
-                                                src="{{ $fileUrl }}"
-                                                alt="{{ $item->alt ?? $item->name }}"
-                                            >
+                                        @if ($isImage)
+                                            <img src="{{ $fileUrl }}" alt="{{ $item->alt ?? $item->name }}">
                                         @else
                                             <i class="fas fa-file fa-2x text-secondary"></i>
                                         @endif
@@ -306,15 +267,12 @@
                                             <i class="fas fa-download mr-2"></i> Download
                                         </a>
 
-                                        <button
-                                            type="button"
-                                            class="media-mini-menu-item"
+                                        <button type="button" class="media-mini-menu-item"
                                             onclick="openRenameFileModal(
                                                 {{ $item->id }},
                                                 @js($item->name),
                                                 @js(route('media.files.rename', $item->id))
-                                            )"
-                                        >
+                                            )">
                                             <i class="fas fa-pen mr-2"></i> Rename
                                         </button>
 
@@ -330,12 +288,8 @@
                                             <i class="fas fa-image mr-2"></i> Alt text
                                         </button> --}}
 
-                                        <form
-                                            method="POST"
-                                            action="{{ route('media.files.destroy', $item->id) }}"
-                                            onsubmit="return confirm('Delete this file?')"
-                                            class="m-0"
-                                        >
+                                        <form method="POST" action="{{ route('media.files.destroy', $item->id) }}"
+                                            onsubmit="return confirm('Delete this file?')" class="m-0">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="media-mini-menu-item danger">

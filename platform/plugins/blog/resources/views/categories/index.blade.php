@@ -19,15 +19,6 @@
         </div>
     </div>
 
-    @if(session('success'))
-        <div class="alert alert-success alert-dismissible">
-            {{ session('success') }}
-            <button type="button" class="close" data-dismiss="alert">
-                <span>&times;</span>
-            </button>
-        </div>
-    @endif
-
     <div class="card card-outline card-primary">
         <div class="card-body table-responsive p-0">
             <table class="table table-hover table-striped mb-0">
@@ -36,8 +27,9 @@
                         <th width="70">STT</th>
                         <th>Name</th>
                         <th>Slug</th>
-                        <th>Description</th>
+                        {{-- <th>Description</th> --}}
                         <th>Parent</th>
+                        <th width="100">Thứ tự</th>
                         <th>Status</th>
                         <th width="180">Action</th>
                     </tr>
@@ -58,13 +50,14 @@
                                 <code>{{ $c->slug }}</code>
                             </td>
 
-                            <td>
+                            {{-- <td>
                                 {{ \Illuminate\Support\Str::limit($c->description, 60) }}
-                            </td>
+                            </td> --}}
 
                             <td>
                                 {{ $c->parent?->name ?? '—' }}
                             </td>
+                            <td>{{ $c->sort_order }}</td>
 
                             <td>
                                 @if($c->status)

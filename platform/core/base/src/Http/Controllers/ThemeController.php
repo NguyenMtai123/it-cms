@@ -2,31 +2,35 @@
 
 namespace Platform\Core\Base\Http\Controllers;
 
-use Illuminate\Support\Facades\DB;
+use Platform\Core\Base\Support\ThemeManager;
 
 class ThemeController
 {
     public function index()
     {
-        $themes = DB::table('themes')->get();
+        $themes = ThemeManager::getThemes();
 
-        return view('base::themes.index', compact('themes'));
+        return view(
+            'base::themes.index',
+            compact('themes')
+        );
     }
 
-    public function activate($slug)
+    public function activate(string $slug)
     {
-        // 1. tắt hết theme
-        DB::table('themes')->update([
-            'is_active' => 0
-        ]);
+        $themePath = base_path(
+            "platform/themes/{$slug}"
+        );
 
-        // 2. bật theme được chọn
-        DB::table('themes')
-            ->where('slug', $slug)
-            ->update([
-                'is_active' => 1
-            ]);
+        if (! is_dir($themePath)) {
+            abort(404);
+        }
 
-        return back()->with('success', 'Theme activated!');
+        ThemeManager::setActiveTheme($slug);
+
+        return back()->with(
+            'success',
+            'Theme activated!'
+        );
     }
 }

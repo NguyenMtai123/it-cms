@@ -40,7 +40,65 @@
 
             <section class="content">
                 <div class="container-fluid mb-2">
+
+                    {{-- Success --}}
+                    @if (session('success'))
+                        <div class="alert alert-success alert-dismissible fade show">
+
+                            <i class="fas fa-check-circle"></i>
+
+                            {{ session('success') }}
+
+                            <button type="button" class="close" data-dismiss="alert">
+
+                                <span>&times;</span>
+
+                            </button>
+
+                        </div>
+                    @endif
+
+                    {{-- Error --}}
+                    @if (session('error'))
+                        <div class="alert alert-danger alert-dismissible fade show">
+                            {{ session('error') }}
+
+                            <button type="button" class="close" data-dismiss="alert">
+                                <span>&times;</span>
+                            </button>
+                        </div>
+                    @endif
+
+                    {{-- Warning --}}
+                    @if (session('warning'))
+                        <div class="alert alert-warning alert-dismissible fade show">
+                            {{ session('warning') }}
+
+                            <button type="button" class="close" data-dismiss="alert">
+                                <span>&times;</span>
+                            </button>
+                        </div>
+                    @endif
+
+                    {{-- Validation Errors --}}
+                    @if ($errors->any())
+                        <div class="alert alert-danger alert-dismissible fade show">
+                            <strong>Có lỗi xảy ra:</strong>
+
+                            <ul class="mb-0 mt-2">
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+
+                            <button type="button" class="close" data-dismiss="alert">
+                                <span>&times;</span>
+                            </button>
+                        </div>
+                    @endif
+
                     @yield('content')
+
                 </div>
             </section>
 
@@ -53,34 +111,34 @@
 
     </div>
     <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Đăng xuất</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-
-            <div class="modal-body">
-                Bạn có muốn đăng xuất không?
-            </div>
-
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">
-                    Hủy
-                </button>
-
-                <form action="{{ route('logout') }}" method="POST" class="d-inline">
-                    @csrf
-                    <button type="submit" class="btn btn-danger btn-sm">
-                        Đăng xuất
+        <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Đăng xuất</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
                     </button>
-                </form>
+                </div>
+
+                <div class="modal-body">
+                    Bạn có muốn đăng xuất không?
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">
+                        Hủy
+                    </button>
+
+                    <form action="{{ route('logout') }}" method="POST" class="d-inline">
+                        @csrf
+                        <button type="submit" class="btn btn-danger btn-sm">
+                            Đăng xuất
+                        </button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
 
     <!-- JS -->
@@ -88,15 +146,17 @@
     <script src="{{ asset('adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('adminlte/dist/js/adminlte.min.js') }}"></script>
     <script>
-    setTimeout(function () {
-        let alerts = document.querySelectorAll('.alert');
-        alerts.forEach(function (alert) {
-            alert.style.transition = "0.5s";
-            alert.style.opacity = "0";
-            setTimeout(() => alert.remove(), 500);
-        });
-    }, 5000);
-</script>
+        setTimeout(function() {
+            let alerts = document.querySelectorAll('.alert');
+            alerts.forEach(function(alert) {
+                alert.style.transition = "0.5s";
+                alert.style.opacity = "0";
+                setTimeout(() => alert.remove(), 500);
+            });
+        }, 3000);
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+
     @stack('scripts');
     @include('media::components.scripts')
 </body>

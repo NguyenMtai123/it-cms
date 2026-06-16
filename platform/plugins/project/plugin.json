@@ -1,0 +1,7 @@
+{
+    "name": "Project",
+    "slug": "project",
+    "version": "1.0.0",
+    "description": "Project system for CMS",
+    "provider": "Platform\\Plugins\\Project\\Providers\\ProjectServiceProvider"
+}

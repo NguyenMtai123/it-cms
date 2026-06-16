@@ -16,21 +16,6 @@
 
     <section class="content">
         <div class="container-fluid">
-
-            {{-- FLASH MESSAGE --}}
-            @if (session('success'))
-                <div class="alert alert-success alert-dismissible">
-                    {{ session('success') }}
-                    <button type="button" class="close" data-dismiss="alert">&times;</button>
-                </div>
-            @endif
-
-            @if ($errors->any())
-                <div class="alert alert-danger">
-                    {{ $errors->first() }}
-                </div>
-            @endif
-
             <div class="row">
 
                 {{-- LEFT --}}

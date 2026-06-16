@@ -16,6 +16,7 @@ class Post extends Model
         'description',
         'content',
         'image',
+        'views', // thêm dòng này
         'status',
         'is_featured',
         'author_id',
@@ -46,10 +47,10 @@ class Post extends Model
         );
     }
     public function author()
-{
-    return $this->belongsTo(
-        \Platform\Core\ACL\Models\User::class,
-        'author_id'
-    );
-}
+    {
+        return $this->belongsTo(
+            \Platform\Core\ACL\Models\User::class,
+            'author_id'
+        );
+    }
 }

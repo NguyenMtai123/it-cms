@@ -94,11 +94,12 @@
                             @forelse($banners as $banner)
                                 <tr>
 
-                                    <td>{{ $banner->id }}</td>
-
+                                    <td>
+                                        {{ ($banners->currentPage() - 1) * $banners->perPage() + $loop->iteration }}
+                                    </td>
                                     {{-- IMAGE --}}
                                     <td>
-                                        <img src="{{ asset( $banner->image) }}"
+                                        <img src="{{ asset($banner->image) }}"
                                             style="width:140px;height:70px;object-fit:cover;border-radius:6px;">
                                     </td>
 

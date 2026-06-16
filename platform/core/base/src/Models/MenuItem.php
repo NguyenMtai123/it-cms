@@ -5,6 +5,7 @@ namespace Platform\Core\Base\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Platform\Packages\Page\Models\Page;
 
 class MenuItem extends Model
 {
@@ -13,13 +14,22 @@ class MenuItem extends Model
     protected $fillable = [
         'menu_id',
         'parent_id',
+
         'label',
+
         'type',
+
+        'page_id',
+
         'url',
+
         'route_name',
         'route_params',
+
         'order',
+
         'target_blank',
+
         'is_active',
     ];
 
@@ -43,5 +53,8 @@ class MenuItem extends Model
     {
         return $this->hasMany(self::class, 'parent_id')->orderBy('order');
     }
-
+    public function page()
+    {
+        return $this->belongsTo(Page::class);
+    }
 }

@@ -1,0 +1,7 @@
+{
+  "name": "Announcement",
+  "slug": "announcement",
+  "version": "1.0.0",
+  "description": "Announcement system for CMS",
+  "provider": "Platform\\Plugins\\Announcement\\Providers\\AnnouncementServiceProvider"
+}

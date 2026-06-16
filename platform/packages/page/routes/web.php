@@ -34,7 +34,10 @@ Route::prefix('admin/pages')
 
 Route::middleware('web')->group(function () {
 
-    Route::get('/{slug}', [PublicPageController::class, 'show'])
-        ->where('slug', '^(?!admin|login|register|blog|events|announcements).+$')
+    Route::get('/{slugPath}', [PublicPageController::class, 'show'])
+        ->where(
+            'slugPath',
+            '^(?!admin|login|register|blog|events|announcements|search|page).*$'
+        )
         ->name('pages.show');
 });

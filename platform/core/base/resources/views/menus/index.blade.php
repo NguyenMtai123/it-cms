@@ -3,7 +3,7 @@
 @section('content')
 <div class="container-fluid">
     <div class="d-flex justify-content-between align-items-center mb-3">
-        <h1 class="mb-0">Menus</h1>
+        <h2 class="mb-0">Menus</h2>
         <a href="{{ route('menus.create') }}" class="btn btn-primary">
             <i class="fas fa-plus"></i> Create Menu
         </a>

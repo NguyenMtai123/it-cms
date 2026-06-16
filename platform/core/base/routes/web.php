@@ -1,9 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Platform\Core\Base\Http\Controllers\PluginController;
-use Platform\Core\Base\Http\Controllers\SettingsController;
 use Platform\Core\Base\Http\Controllers\MenuController;
+use Platform\Core\Base\Http\Controllers\PluginController;
+use Platform\Core\Base\Http\Controllers\SearchController;
+use Platform\Core\Base\Http\Controllers\SettingsController;
 use Platform\Core\Base\Http\Controllers\ThemeController;
 
 
@@ -65,3 +66,5 @@ Route::prefix('admin/themes')->middleware(['web', 'admin'])->group(function () {
 
 
 // Route::get('/', [HomeController::class, 'index']);
+Route::get('/search', [SearchController::class, 'index'])
+    ->name('search');

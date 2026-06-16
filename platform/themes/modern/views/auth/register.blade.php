@@ -1,88 +1,102 @@
 @extends('theme::layouts.auth')
+
 @section('title','Đăng ký')
 
 @section('content')
 
-<div class="card shadow-sm border-0">
-    <div class="card-body p-4">
+<div class="auth-card">
 
-        <h2 class="mb-4">Đăng ký tài khoản</h2>
+    <div class="auth-header">
 
-        {{-- ERROR --}}
-        @if($errors->any())
-            <div class="alert alert-danger">
-                <ul class="mb-0">
-                    @foreach($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
+        <img
+            src="{{ setting('site_logo') }}"
+            class="auth-logo">
 
-        <form method="POST" action="/register">
+        <div class="auth-title">
+            Đăng ký tài khoản
+        </div>
+
+        <div class="auth-subtitle">
+            Tham gia cộng đồng thành viên
+        </div>
+
+    </div>
+
+    <div class="auth-body">
+
+        <form method="POST"
+              action="{{ route('customer.register') }}">
+
             @csrf
 
-            <div class="mb-3">
-                <label>Họ</label>
-                <input type="text"
-                       name="first_name"
-                       value="{{ old('first_name') }}"
-                       class="form-control @error('first_name') is-invalid @enderror">
+            <div class="form-icon mb-3">
+                <i class="bi bi-person"></i>
 
-                @error('first_name')
-                    <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
+                <input
+                    type="text"
+                    name="first_name"
+                    class="form-control"
+                    placeholder="Họ">
             </div>
 
-            <div class="mb-3">
-                <label>Tên</label>
-                <input type="text"
-                       name="last_name"
-                       value="{{ old('last_name') }}"
-                       class="form-control @error('last_name') is-invalid @enderror">
+            <div class="form-icon mb-3">
+                <i class="bi bi-person"></i>
 
-                @error('last_name')
-                    <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
+                <input
+                    type="text"
+                    name="last_name"
+                    class="form-control"
+                    placeholder="Tên">
             </div>
 
-            <div class="mb-3">
-                <label>Email</label>
-                <input type="email"
-                       name="email"
-                       value="{{ old('email') }}"
-                       class="form-control @error('email') is-invalid @enderror">
+            <div class="form-icon mb-3">
+                <i class="bi bi-envelope"></i>
 
-                @error('email')
-                    <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
+                <input
+                    type="email"
+                    name="email"
+                    class="form-control"
+                    placeholder="Email">
             </div>
 
-            <div class="mb-3">
-                <label>Mật khẩu</label>
-                <input type="password"
-                       name="password"
-                       class="form-control @error('password') is-invalid @enderror">
+            <div class="form-icon mb-3">
+                <i class="bi bi-lock"></i>
 
-                @error('password')
-                    <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
+                <input
+                    type="password"
+                    name="password"
+                    class="form-control"
+                    placeholder="Mật khẩu">
             </div>
 
-            <div class="mb-3">
-                <label>Xác nhận mật khẩu</label>
-                <input type="password"
-                       name="password_confirmation"
-                       class="form-control">
+            <div class="form-icon mb-3">
+                <i class="bi bi-shield-lock"></i>
+
+                <input
+                    type="password"
+                    name="password_confirmation"
+                    class="form-control"
+                    placeholder="Nhập lại mật khẩu">
             </div>
 
-            <button class="btn btn-success w-100">
+            <button class="btn-auth w-100">
                 Đăng ký
             </button>
 
         </form>
 
+        <div class="auth-links">
+
+            Đã có tài khoản?
+
+            <a href="{{ route('customer.login') }}">
+                Đăng nhập
+            </a>
+
+        </div>
+
     </div>
+
 </div>
 
 @endsection

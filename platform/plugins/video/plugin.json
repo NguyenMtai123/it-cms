@@ -1,0 +1,7 @@
+{
+  "name": "Video",
+  "slug": "video",
+  "version": "1.0.0",
+  "description": "Video system for CMS",
+  "provider": "Platform\\Plugins\\Video\\Providers\\VideoServiceProvider"
+}

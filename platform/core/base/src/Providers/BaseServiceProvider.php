@@ -5,6 +5,7 @@ namespace Platform\Core\Base\Providers;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
+use Platform\Core\ACL\Models\Role;
 use Platform\Core\Base\Support\PluginManager;
 use Platform\Core\Base\Support\PluginScanner;
 use Platform\Core\Base\Support\ThemeManager;
@@ -76,13 +77,17 @@ class BaseServiceProvider extends ServiceProvider
             'permission' => 'core.system',
         ]);
 
-        dashboard_menu([
-            'id' => 'members',
-            'name' => 'Member',
-            'icon' => 'fas fa-id-card', // Thay users thành id-card để phân biệt với Quản trị viên (Users)
-            'url' => '/admin/members',
-            'permission' => 'users.view',
-        ]);
+        $customerRole = Role::where('slug', 'customer')->exists();
+
+        if ($customerRole) {
+            dashboard_menu([
+                'id' => 'members',
+                'name' => 'Member',
+                'icon' => 'fas fa-id-card',
+                'url' => '/admin/members',
+                'permission' => 'users.view',
+            ]);
+        }
 
         dashboard_menu([
             'id' => 'system',
@@ -96,7 +101,7 @@ class BaseServiceProvider extends ServiceProvider
                     'icon' => 'fas fa-stream', // Thay bars (3 gạch) thành stream (dạng phân cấp cây menu)
                     'permission' => 'core.system',
                 ],
-                 [
+                [
                     'name' => 'Users',
                     'url' => '/admin/users',
                     'icon' => 'fas fa-user-shield', // Thay users thành user-shield (người dùng quản trị)

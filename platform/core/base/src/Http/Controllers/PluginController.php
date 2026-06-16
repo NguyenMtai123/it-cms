@@ -42,28 +42,48 @@ class PluginController
     public function install($id)
     {
         $plugin = Plugin::findOrFail($id);
+
         $this->service->install($plugin->slug);
-        return back();
+
+        return back()->with(
+            'success',
+            "Plugin '{$plugin->name}' đã được cài đặt thành công."
+        );
     }
 
     public function uninstall($id)
     {
         $plugin = Plugin::findOrFail($id);
+
         $this->service->uninstall($plugin->slug);
-        return back();
+
+        return back()->with(
+            'success',
+            "Plugin '{$plugin->name}' đã được gỡ cài đặt thành công."
+        );
     }
 
     public function activate($id)
     {
         $plugin = Plugin::findOrFail($id);
+
         $this->service->activate($plugin->slug);
-        return back();
+
+        return back()->with(
+            'success',
+            "Plugin '{$plugin->name}' đã được kích hoạt."
+        );
     }
 
     public function deactivate($id)
     {
         $plugin = Plugin::findOrFail($id);
+
         $this->service->deactivate($plugin->slug);
-        return back();
+
+        return back()->with(
+            'success',
+            "Plugin '{$plugin->name}' đã được vô hiệu hóa."
+        );
     }
 }
