@@ -507,10 +507,11 @@
             overflow-y: auto;
             overflow-x: visible;
         }
+
         .item {
-    position: relative;
-    overflow: visible;
-}
+            position: relative;
+            overflow: visible;
+        }
     </style>
 </head>
 
@@ -961,16 +962,22 @@
         }
 
         function selectMedia(id, url, name, alt) {
+
+            const relativePath =
+                url.replace(window.location.origin + '/storage/', '');
+
             if (window.opener && !window.opener.closed) {
+
                 window.opener.postMessage({
                     media_selected: {
                         id,
-                        url,
+                        url: relativePath,
                         name,
                         alt
                     }
                 }, '*');
             }
+
             window.close();
         }
 

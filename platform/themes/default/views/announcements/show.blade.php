@@ -65,7 +65,7 @@
                 </h5>
 
                 @php
-                    $file = asset($announcement->attachment);
+                    $file = asset('storage/' .$announcement->attachment);
                     $ext = strtolower(pathinfo($announcement->attachment, PATHINFO_EXTENSION));
                 @endphp
 

@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@yield('title', 'IT CMS Admin')</title>
     @if (setting('site_favicon'))
-        <link rel="icon" href="{{ asset(setting('site_favicon')) }}">
+        <link rel="icon" href="{{ asset('storage/' .setting('site_favicon')) }}">
     @endif
 
     <!-- Google Font -->

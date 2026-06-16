@@ -25,7 +25,7 @@
                     @if ($mainPost)
                         <a href="{{ url('/blog/' . $mainPost->slug) }}" class="text-dark">
 
-                            <img src="{{ asset($mainPost->image) }}" class="home-main-image">
+                            <img src="{{ asset('storage/' . $mainPost->image) }}" class="home-main-image">
 
                             <h3 class="home-main-title mt-3">
                                 {{ $mainPost->title }}
@@ -42,7 +42,7 @@
                     @foreach ($featuredPosts->skip(1) as $post)
                         <div class="small-news">
 
-                            <img src="{{ asset($post->image) }}" class="small-news-image">
+                            <img src="{{ asset('storage/' . $post->image) }}" class="small-news-image">
 
                             <a href="{{ url('/blog/' . $post->slug) }}" class="small-news-title">
 
@@ -127,7 +127,7 @@
 
                         <a href="{{ url('/blog/' . $main->slug) }}" class="text-decoration-none text-dark">
 
-                            <img src="{{ asset($main->image) }}" class="category-main-image">
+                            <img src="{{ asset('storage/' . $main->image) }}" class="category-main-image">
 
                             <h5 class="category-main-title">
                                 {{ $main->title }}
@@ -192,7 +192,7 @@
 
         <section class="admission-section mt-5"
             style="
-        background-image:url('{{ asset($admissionSetting->background_image) }}');
+        background-image:url('{{ asset('storage/' . $admissionSetting->background_image) }}');
     ">
 
             <div class="admission-overlay">
@@ -213,7 +213,8 @@
 
                                     <a href="{{ $admissionSetting->banner_url ?: '#' }}">
 
-                                        <img src="{{ asset($admissionSetting->banner_image) }}" class="admission-banner">
+                                        <img src="{{ asset('storage/' . $admissionSetting->banner_image) }}"
+                                            class="admission-banner">
 
                                     </a>
 
@@ -254,7 +255,7 @@
 
                             <a href="{{ $admissionSetting->career_url ?: '#' }}">
 
-                                <img src="{{ asset($admissionSetting->career_image) }}" class="career-image">
+                                <img src="{{ asset('storage/' . $admissionSetting->career_image) }}" class="career-image">
 
                             </a>
 
@@ -286,7 +287,7 @@
                     @foreach ($projects as $project)
                         <div class="project-logo-item">
 
-                            <img src="{{ $project->logo }}" alt="{{ $project->name }}">
+                            <img src="{{ asset('storage/' . $project->logo) }}" alt="{{ $project->name }}">
 
                         </div>
                     @endforeach
@@ -401,7 +402,7 @@
 
                                 <a href="{{ url('/blog/' . $topPost->slug) }}" class="sharing-featured">
 
-                                    <img src="{{ asset($topPost->image) }}" alt="{{ $topPost->title }}">
+                                    <img src="{{ asset('storage/' . $topPost->image) }}" alt="{{ $topPost->title }}">
 
                                     <h4>
 
@@ -461,7 +462,7 @@
 
                                 <div class="ntu-image-wrap">
 
-                                    <img src="{{ asset($post->image) }}">
+                                    <img src="{{ asset('storage/' . $post->image) }}">
 
                                     <div class="ntu-overlay">
 
@@ -735,8 +736,8 @@
         }
 
         /* -----------------------------------------------------
-                                                                                           ITEM
-                                                                                        ----------------------------------------------------- */
+                                                                                               ITEM
+                                                                                            ----------------------------------------------------- */
 
         .admission-item {
             display: flex;
@@ -875,8 +876,8 @@
         }
 
         /* ==========================================
-                                                                       DỰ ÁN QUỐC TẾ TIÊU BIỂU
-                                                                    ========================================== */
+                                                                           DỰ ÁN QUỐC TẾ TIÊU BIỂU
+                                                                        ========================================== */
 
         .international-projects {
             padding: 50px 0;
@@ -934,8 +935,8 @@
         }
 
         /* ===========================
-                                                                       RESPONSIVE
-                                                                    =========================== */
+                                                                           RESPONSIVE
+                                                                        =========================== */
 
         @media (max-width: 1400px) {
 
@@ -982,8 +983,8 @@
         }
 
         /* ==========================
-                                                       VIDEO CENTER
-                                                    ========================== */
+                                                           VIDEO CENTER
+                                                        ========================== */
 
         .video-main {
             position: relative;
@@ -1111,8 +1112,8 @@
         }
 
         /* ==================================
-                                               NTU GÓC NHÌN CHIA SẺ
-                                            ================================== */
+                                                   NTU GÓC NHÌN CHIA SẺ
+                                                ================================== */
 
         .sharing-box {
             background: #fffffc;
@@ -1173,8 +1174,8 @@
         }
 
         /* ==================================
-                                       NTU TRONG TÔI
-                                    ================================== */
+                                           NTU TRONG TÔI
+                                        ================================== */
 
         .ntu-section {
             background: #f3f3f3;
@@ -1307,8 +1308,8 @@
         }
 
         /* =================================
-                           TÌM HIỂU VỀ NTU
-                        ================================= */
+                               TÌM HIỂU VỀ NTU
+                            ================================= */
 
         .about-ntu-section {
 

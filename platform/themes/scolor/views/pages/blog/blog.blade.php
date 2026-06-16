@@ -16,7 +16,7 @@
 
         <a href="{{ url('/blog/'.$post->slug) }}">
 
-            <img src="{{ asset($post->image) }}">
+            <img src="{{ asset('storage/' .$post->image) }}">
 
         </a>
 
@@ -75,12 +75,12 @@
 <div class="mt-4">
     {{ $posts->links() }}
 </div>
-
-@endsection
-
 @section('sidebar')
     @include('theme::partials.blog-sidebar')
 @endsection
+@endsection
+
+
 <style>
 .category-title{
     font-size:18px;

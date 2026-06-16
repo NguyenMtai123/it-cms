@@ -11,7 +11,7 @@
         <div class="logo-area">
 
             @if (setting('site_logo'))
-                <img src="{{ asset(setting('site_logo')) }}" alt="{{ setting('site_title') }}">
+                <img src="{{ asset('storage/' .setting('site_logo')) }}" alt="{{ setting('site_title') }}">
             @endif
             <div>
 

@@ -21,7 +21,7 @@
                     <a href="{{ url('/blog/'.$post->slug) }}">
 
                         <img
-                            src="{{ asset($post->image) }}"
+                            src="{{ asset('storage/' .$post->image) }}"
                             class="post-thumb">
 
                     </a>

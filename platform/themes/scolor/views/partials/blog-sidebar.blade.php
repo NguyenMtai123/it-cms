@@ -61,7 +61,7 @@
                 class="d-flex gap-3 mb-3 text-decoration-none">
 
                 <img
-                    src="{{ asset($item->image) }}"
+                    src="{{ asset('storage/' .$item->image) }}"
                     width="90"
                     height="60"
                     style="object-fit:cover;">

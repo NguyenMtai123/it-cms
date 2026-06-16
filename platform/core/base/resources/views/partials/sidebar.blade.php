@@ -10,7 +10,7 @@
         <span class="brand-text font-weight-light">
 
             @if (setting('site_logo'))
-                <img src="{{ setting('site_logo') }}"
+                <img src="{{ asset('storage/' .setting('site_logo')) }}"
                     style="height:40px; width:40px; object-fit:cover; border-radius:50%;">
             @else
                 <span class="brand-text">

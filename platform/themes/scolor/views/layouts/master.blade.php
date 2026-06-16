@@ -8,7 +8,7 @@
     <title>@yield('title', setting('site_title', 'IT CMS'))</title>
 
     @if (setting('site_favicon'))
-        <link rel="icon" href="{{ asset(setting('site_favicon')) }}">
+        <link rel="icon" href="{{ asset('storage/' .setting('site_favicon')) }}">
     @endif
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -542,10 +542,10 @@
             </div>
 
         </div>
-        <div class="container container-wide brand-row">
+        <div class="container container-wide brand-row px-3">
             <div class="d-flex flex-column flex-lg-row justify-content-between align-items-lg-center gap-3">
                 <a href="{{ url('/') }}" class="brand-wrap text-decoration-none">
-                    <img class="brand-logo" src="{{ asset(setting('site_logo', '')) }}"
+                    <img class="brand-logo" src="{{ asset('storage/' .setting('site_logo', '')) }}"
                         alt="{{ setting('site_title', 'IT CMS') }}" onerror="this.style.display='none'">
                     <div class="brand-text">
                         <div class="site-title">{{ setting('site_title', 'IT CMS') }}</div>
@@ -625,9 +625,25 @@
             </div>
         </div>
     </header>
-
+    @if (isset($page))
+        @include('theme::partials.breadcrumb')
+    @endif
     <main class="site-content">
-        @yield('content')
+        @hasSection('sidebar')
+                <div class="row g-4 mt-3 p-4">
+
+                    <div class="col-lg-8">
+                        @yield('content')
+                    </div>
+
+                    <div class="col-lg-4">
+                        @yield('sidebar')
+                    </div>
+
+                </div>
+            @else
+                @yield('content')
+            @endif
     </main>
 
     <footer class="site-footer mt-5" id="contact">
@@ -635,7 +651,7 @@
             <div class="row g-4">
                 <div class="col-lg-4">
                     <div class="footer-brand">
-                        <img src="{{ asset(setting('site_logo', '')) }}" alt="{{ setting('site_title', 'IT CMS') }}"
+                        <img src="{{ asset('storage/' .setting('site_logo', '')) }}" alt="{{ setting('site_title', 'IT CMS') }}"
                             onerror="this.style.display='none'">
                         <div>
                             <div class="footer-title mb-1">{{ setting('site_title', 'IT CMS') }}</div>

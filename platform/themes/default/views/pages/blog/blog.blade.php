@@ -16,7 +16,7 @@
 
         <a href="{{ url('/blog/'.$post->slug) }}">
 
-            <img src="{{ asset($post->image) }}">
+            <img src="{{ asset('storage/' .$post->image) }}">
 
         </a>
 

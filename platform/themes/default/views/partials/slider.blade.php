@@ -5,7 +5,7 @@
         @foreach ($sliders as $item)
             <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
 
-                <img src="{{ asset($item->image) }}" class="d-block w-100 slider-image">
+                <img src="{{ asset('storage/' .$item->image) }}" class="d-block w-100 slider-image">
 
                 <div class="carousel-caption">
                     {{-- <h2>{{ $item->title }}</h2>

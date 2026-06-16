@@ -26,7 +26,7 @@
                     @foreach ($sliders as $slider)
                         <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
                             <div class="hero-slide">
-                                <img src="{{ asset($slider->image) }}" class="hero-image"
+                                <img src="{{ asset('storage/' . $slider->image) }}" class="hero-image"
                                     alt="{{ $slider->title ?? 'Banner' }}">
 
                                 <div class="hero-overlay">
@@ -150,7 +150,7 @@
 
                     @if ($mainFeatured)
                         <a href="{{ url('/blog/' . $mainFeatured->slug) }}" class="featured-main">
-                            <img src="{{ asset($mainFeatured->image) }}" alt="{{ $mainFeatured->title }}"
+                            <img src="{{ asset('storage/' . $mainFeatured->image) }}" alt="{{ $mainFeatured->title }}"
                                 class="featured-main-image">
                             <div class="featured-main-body">
                                 <div class="featured-main-meta">
@@ -170,7 +170,7 @@
                             @foreach ($sideFeatured as $post)
                                 <div class="col-md-6">
                                     <a href="{{ url('/blog/' . $post->slug) }}" class="news-card hover-lift">
-                                        <img src="{{ asset($post->image) }}" class="news-card-image"
+                                        <img src="{{ asset('storage/' . $post->image) }}" class="news-card-image"
                                             alt="{{ $post->title }}">
                                         <div class="news-card-body">
                                             <h6 class="news-card-title clamp-2">{{ $post->title }}</h6>
@@ -233,7 +233,8 @@
                 @foreach ($latestPosts as $post)
                     <div class="col-md-6 col-lg-3">
                         <a href="{{ url('/blog/' . $post->slug) }}" class="latest-card hover-lift">
-                            <img src="{{ asset($post->image) }}" class="latest-card-image" alt="{{ $post->title }}">
+                            <img src="{{ asset('storage/' . $post->image) }}" class="latest-card-image"
+                                alt="{{ $post->title }}">
                             <div class="latest-card-body">
                                 <h6 class="latest-card-title clamp-3">{{ $post->title }}</h6>
                                 <small class="text-soft">{{ $post->created_at->format('d/m/Y') }}</small>
@@ -272,7 +273,7 @@
                                 </div>
 
                                 <a href="{{ url('/blog/' . $main->slug) }}" class="category-main">
-                                    <img src="{{ asset($main->image) }}" class="category-main-image"
+                                    <img src="{{ asset('storage/' . $main->image) }}" class="category-main-image"
                                         alt="{{ $main->title }}">
                                     <h6 class="category-main-title clamp-3">{{ $main->title }}</h6>
                                 </a>
@@ -296,7 +297,8 @@
     {{-- ADMISSION --}}
     @if ($admissionSetting)
         <section class="admission-wrap mb-5">
-            <div class="admission-bg" style="background-image:url('{{ asset($admissionSetting->background_image) }}');">
+            <div class="admission-bg"
+                style="background-image:url('{{ asset('storage/' . $admissionSetting->background_image) }}');">
                 <div class="admission-overlay">
                     <div class="container py-4 py-lg-5">
                         <div class="row g-4 align-items-stretch">
@@ -316,7 +318,7 @@
                                     <div class="row g-4 align-items-center">
                                         <div class="col-md-5">
                                             <a href="{{ $admissionSetting->banner_url ?: '#' }}">
-                                                <img src="{{ asset($admissionSetting->banner_image) }}"
+                                                <img src="{{ asset('storage/' . $admissionSetting->banner_image) }}"
                                                     class="rounded-4 w-100 admission-banner-img" alt="Admission Banner">
                                             </a>
                                         </div>
@@ -343,7 +345,7 @@
                             <div class="col-lg-4">
                                 <div class="card-soft h-100 p-3">
                                     <a href="{{ $admissionSetting->career_url ?: '#' }}">
-                                        <img src="{{ asset($admissionSetting->career_image) }}"
+                                        <img src="{{ asset('storage/' . $admissionSetting->career_image) }}"
                                             class="rounded-4 w-100 h-100 object-fit-cover" alt="Career">
                                     </a>
                                 </div>
@@ -370,7 +372,7 @@
                     @foreach ($projects as $project)
                         <div class="project-item">
                             <div class="project-logo-box">
-                                <img src="{{ $project->logo }}" alt="{{ $project->name }}">
+                                <img src="{{ asset('storage/' .$project->logo )}}" alt="{{ $project->name }}">
                             </div>
                         </div>
                     @endforeach
@@ -444,7 +446,7 @@
                         <h2 class="section-title mb-3">{{ $sharingCategory->name }}</h2>
 
                         <a href="{{ url('/blog/' . $topPost->slug) }}" class="sharing-featured">
-                            <img src="{{ asset($topPost->image) }}" alt="{{ $topPost->title }}"
+                            <img src="{{ asset('storage/' .$topPost->image) }}" alt="{{ $topPost->title }}"
                                 class="rounded-4 w-100 mb-3">
                             <h6 class="clamp-2 mb-2 text-dark">{{ $topPost->title }}</h6>
                         </a>
@@ -475,7 +477,7 @@
                                 <div class="ntu-card">
                                     <a href="{{ url('/blog/' . $post->slug) }}" class="ntu-card-link">
                                         <div class="ntu-image-wrap">
-                                            <img src="{{ asset($post->image) }}" alt="{{ $post->title }}">
+                                            <img src="{{ asset('storage/' .$post->image) }}" alt="{{ $post->title }}">
                                             <div class="ntu-overlay">
                                                 <span>Chi tiết <i class="fa-solid fa-arrow-right ms-1"></i></span>
                                             </div>

@@ -8,7 +8,7 @@
     <title>@yield('title', setting('site_title', 'IT CMS'))</title>
 
     @if (setting('site_favicon'))
-        <link rel="icon" href="{{ asset(setting('site_favicon')) }}">
+        <link rel="icon" href="{{ asset('storage/' .setting('site_favicon')) }}">
     @endif
     <meta name="csrf-token" content="{{ csrf_token() }}">
 

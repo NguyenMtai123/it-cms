@@ -147,13 +147,11 @@
                 </tbody>
 
             </table>
-            <td class="text-center">
+            <div class="d-flex justify-content-center py-3 border-top">
 
-                <span class="badge badge-light px-3 py-2">
-                    {{ ($videos->currentPage() - 1) * $videos->perPage() + $loop->iteration }}
-                </span>
+                {{ $videos->links() }}
 
-            </td>
+            </div>
 
         </div>
 

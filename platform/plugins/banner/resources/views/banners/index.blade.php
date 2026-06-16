@@ -99,7 +99,7 @@
                                     </td>
                                     {{-- IMAGE --}}
                                     <td>
-                                        <img src="{{ asset($banner->image) }}"
+                                        <img src="{{ asset('storage/' .$banner->image) }}"
                                             style="width:140px;height:70px;object-fit:cover;border-radius:6px;">
                                     </td>
 

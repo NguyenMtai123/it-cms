@@ -10,7 +10,7 @@
             <h1>{{ $page->name }}</h1>
 
             @if ($page->image)
-                <img src="{{ asset($page->image) }}" class="img-fluid mb-3">
+                <img src="{{ asset('storage/' .$page->image) }}" class="img-fluid mb-3">
             @endif
 
             <p>{{ $page->description }}</p>
@@ -28,14 +28,14 @@
                 @if ($extension === 'pdf')
                     <div class="mt-4">
 
-                        <iframe src="{{ asset($page->file) }}" width="100%" height="1000" style="border:1px solid #ddd;">
+                        <iframe src="{{ asset('storage/' .$page->file) }}" width="100%" height="1000" style="border:1px solid #ddd;">
                         </iframe>
 
                     </div>
                 @else
                     <div class="mt-4">
 
-                        <a href="{{ asset($page->file) }}" target="_blank" class="btn btn-primary">
+                        <a href="{{ asset('storage/' .$page->file) }}" target="_blank" class="btn btn-primary">
 
                             Tải tài liệu
 

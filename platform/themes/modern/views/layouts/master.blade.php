@@ -8,7 +8,7 @@
     <title>@yield('title', setting('site_title', 'IT CMS'))</title>
 
     @if (setting('site_favicon'))
-        <link rel="icon" href="{{ asset(setting('site_favicon')) }}">
+        <link rel="icon" href="{{ asset('storage/' . setting('site_favicon')) }}">
     @endif
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -436,6 +436,21 @@
         .user-menu button:hover {
             background: #f1f5f9;
         }
+
+        .navbar-modern .dropdown-menu {
+            margin-top: 0;
+            display: block;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: .25s ease;
+        }
+
+        .navbar-modern .dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
     </style>
 
     @stack('styles')
@@ -449,7 +464,7 @@
                 <div class="col-lg-4 col-md-12">
                     <a href="{{ url('/') }}" class="brand-wrap text-decoration-none">
                         @if (setting('site_logo'))
-                            <img src="{{ asset(setting('site_logo')) }}" alt="Logo" class="brand-logo">
+                            <img src="{{ asset('storage/' . setting('site_logo')) }}" alt="Logo" class="brand-logo">
                         @else
                             <div class="brand-logo rounded-circle d-flex align-items-center justify-content-center"
                                 style="background:linear-gradient(135deg,var(--primary),var(--primary-2));color:#fff;font-weight:800;">
@@ -517,52 +532,79 @@
             </div>
         </div>
 
+        @php
+            use Platform\Core\Base\Models\Menu;
+
+            $menu = Menu::with([
+                'items.children' => function ($q) {
+                    $q->orderBy('order');
+                },
+            ])
+                ->where('location', 'navbar')
+                ->where('is_active', true)
+                ->first();
+        @endphp
+
         <nav class="navbar navbar-expand-lg navbar-dark navbar-modern">
             <div class="container">
-                <a class="navbar-brand d-lg-none fw-bold" href="{{ url('/') }}">
-                    {{ setting('site_title', 'IT CMS') }}
-                </a>
 
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar"
-                    aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
                 <div class="collapse navbar-collapse" id="mainNavbar">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link {{ request()->is('/') ? 'active' : '' }}" href="{{ url('/') }}">
-                                <i class="fa-solid fa-house me-1"></i> Trang chủ
-                            </a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-                                Giới thiệu
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="{{ url('/page/gioi-thieu') }}">Tổng quan</a></li>
-                                <li><a class="dropdown-item" href="{{ url('/page/lich-su') }}">Lịch sử</a></li>
-                                <li><a class="dropdown-item" href="{{ url('/page/co-cau-to-chuc') }}">Cơ cấu tổ
-                                        chức</a></li>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ url('/blog') }}">Tin tức</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('announcements') ?? '#' }}">Thông báo</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ url('/tuyen-sinh') }}">Tuyển sinh</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ url('/du-an') }}">Dự án</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ url('/lien-he') }}">Liên hệ</a>
-                        </li>
+
+                    <ul class="navbar-nav me-auto">
+
+                        @foreach ($menu?->items?->whereNull('parent_id')->sortBy('order') ?? [] as $item)
+                            @if ($item->children->count())
+                                <li class="nav-item dropdown">
+
+                                    <a class="nav-link dropdown-toggle" href="{{ $item->url ?: '#' }}"
+                                        data-bs-toggle="dropdown">
+
+                                        {{ $item->label }}
+
+                                    </a>
+
+                                    <ul class="dropdown-menu">
+
+                                        @foreach ($item->children->sortBy('order') as $child)
+                                            <li>
+
+                                                <a class="dropdown-item" href="{{ $child->url }}">
+
+                                                    {{ $child->label }}
+
+                                                </a>
+
+                                            </li>
+                                        @endforeach
+
+                                    </ul>
+
+                                </li>
+                            @else
+                                <li class="nav-item">
+
+                                    <a class="nav-link" href="{{ $item->url }}">
+
+                                        @if ($item->url == '/')
+                                            <i class="fa-solid fa-house me-1"></i>
+                                        @endif
+
+                                        {{ $item->label }}
+
+                                    </a>
+
+                                </li>
+                            @endif
+                        @endforeach
+
                     </ul>
+
                 </div>
+
             </div>
         </nav>
     </header>
@@ -600,7 +642,7 @@
                 <div class="col-lg-4">
                     <div class="d-flex align-items-center gap-3 mb-3">
                         @if (setting('site_logo'))
-                            <img src="{{ asset(setting('site_logo')) }}" alt="Logo"
+                            <img src="{{ asset('storage/' . setting('site_logo')) }}" alt="Logo"
                                 style="width:52px;height:52px;object-fit:contain;">
                         @endif
                         <div>

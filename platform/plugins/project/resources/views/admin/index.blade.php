@@ -59,7 +59,7 @@
                             <td>
 
                                 @if ($item->logo)
-                                    <img src="{{ asset($item->logo) }}" width="70">
+                                    <img src="{{ asset('storage/' .$item->logo) }}" width="70">
                                 @endif
 
                             </td>
