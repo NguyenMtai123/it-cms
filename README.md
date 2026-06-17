@@ -1,6 +1,4 @@
-# 🎓 University CMS
-
-<div align="center">
+# University CMS
 
 ![Laravel](https://img.shields.io/badge/Laravel-11-red)
 ![PHP](https://img.shields.io/badge/PHP-8.2-blue)
@@ -8,116 +6,39 @@
 ![Bootstrap](https://img.shields.io/badge/Bootstrap-5-purple)
 ![Architecture](https://img.shields.io/badge/Architecture-Modular%20Monolith-success)
 
-**Hệ thống quản trị nội dung (CMS) dành cho cổng thông tin điện tử trường đại học**
+## Giới thiệu
 
-</div>
+University CMS là hệ thống quản trị nội dung (Content Management System - CMS) được xây dựng bằng Laravel Framework và MySQL, phục vụ cho việc quản lý và vận hành cổng thông tin điện tử của trường đại học.
 
----
+Hệ thống cho phép quản trị viên quản lý nội dung website, bài viết, trang thông tin, menu điều hướng, banner quảng bá, tài khoản người dùng và cấu hình hệ thống thông qua giao diện quản trị trực quan.
 
-# 📖 Giới thiệu
-
-University CMS là hệ thống quản trị nội dung được phát triển bằng **Laravel Framework** và **MySQL**, cho phép quản lý toàn bộ nội dung website trường đại học thông qua giao diện quản trị trực quan.
-
-Hệ thống hỗ trợ quản lý bài viết, trang nội dung, menu điều hướng, banner, người dùng, cấu hình website và nhiều thành phần khác nhằm đáp ứng nhu cầu vận hành cổng thông tin điện tử hiện đại.
-
-Dự án được xây dựng trong khuôn khổ **Đồ án Tốt nghiệp ngành Công nghệ Thông tin**.
+Dự án được phát triển theo kiến trúc **Modular Monolith**, giúp dễ dàng mở rộng, bảo trì và tái sử dụng mã nguồn.
 
 ---
 
-# ✨ Chức năng nổi bật
+## Mục tiêu dự án
 
-## 📄 Quản lý nội dung
-
-* Quản lý trang nội dung (Pages)
-* Quản lý bài viết (Posts)
-* Quản lý danh mục (Categories)
-* Hiển thị tin tức theo danh mục
-* Tìm kiếm bài viết
-
-## 🖼️ Quản lý giao diện
-
-* Quản lý Menu động
-* Hỗ trợ Menu đa cấp
-* Quản lý Banner / Slider
-* Quản lý Logo Website
-* Quản lý Favicon
-* Quản lý Footer
-* Quản lý liên kết nhanh
-
-## 👥 Quản lý người dùng
-
-* Đăng nhập
-* Đăng xuất
-* Đăng ký thành viên
-* Quên mật khẩu
-* Hồ sơ cá nhân
-* Phân quyền người dùng
-
-## ⚙️ Quản lý hệ thống
-
-* Cấu hình website
-* Upload hình ảnh
-* Quản lý tập tin Media
-* Quản lý thông tin liên hệ
+* Xây dựng hệ thống CMS phục vụ quản lý website trường đại học.
+* Tách biệt rõ ràng giữa giao diện và nghiệp vụ.
+* Hỗ trợ mở rộng chức năng thông qua Packages và Plugins.
+* Xây dựng kiến trúc linh hoạt, dễ bảo trì và phát triển lâu dài.
+* Áp dụng mô hình MVC trên nền tảng Laravel Framework.
 
 ---
 
-# 🏗️ Kiến trúc hệ thống
+## Công nghệ sử dụng
 
-Hệ thống được xây dựng theo kiến trúc:
-
-## Modular Monolith Architecture
-
-Ứng dụng được triển khai dưới dạng một hệ thống thống nhất (Monolith) nhưng được chia thành nhiều module độc lập theo từng chức năng nghiệp vụ.
-
-### Các module chính
-
-```text
-platform/
-└── Core/
-    ├── ACL
-    ├── Base
-    ├── Blog
-    ├── Page
-    ├── Menu
-    ├── Media
-    ├── Slider
-    └── Setting
-```
-
-Mỗi module được tổ chức theo mô hình MVC:
-
-```text
-Blog/
-├── Models/
-├── Http/
-│   ├── Controllers/
-│   └── Requests/
-├── Resources/
-│   └── Views/
-├── Routes/
-└── Providers/
-```
-
-### Ưu điểm
-
-* Dễ mở rộng
-* Dễ bảo trì
-* Tách biệt nghiệp vụ rõ ràng
-* Giảm sự phụ thuộc giữa các thành phần
-* Phù hợp với hệ thống CMS quy mô vừa và lớn
-
----
-
-# 🧱 Công nghệ sử dụng
-
-## Backend
+### Backend
 
 * PHP 8.x
 * Laravel Framework
 * Eloquent ORM
 
-## Frontend
+### Database
+
+* MySQL
+
+### Frontend
 
 * HTML5
 * CSS3
@@ -126,11 +47,7 @@ Blog/
 * jQuery
 * Font Awesome
 
-## Database
-
-* MySQL
-
-## Công cụ phát triển
+### Công cụ phát triển
 
 * Composer
 * Git
@@ -139,46 +56,210 @@ Blog/
 
 ---
 
-# 📂 Cấu trúc dự án
+## Kiến trúc hệ thống
+
+Dự án được xây dựng theo mô hình:
 
 ```text
-app/
-bootstrap/
-config/
-database/
-public/
-resources/
-routes/
+Architecture : Modular Monolith
+Pattern      : MVC
+Framework    : Laravel
+Database     : MySQL
+Frontend     : Bootstrap 5 + jQuery
+```
 
+### Cấu trúc thư mục
+
+```text
 platform/
-└── Core/
-    ├── ACL/
-    ├── Base/
-    ├── Blog/
-    ├── Menu/
-    ├── Media/
-    ├── Page/
-    ├── Setting/
-    └── Slider/
-
-storage/
-vendor/
+│
+├── core/
+│   ├── acl/
+│   ├── base/
+│   ├── dashboard/
+│   └── media/
+│
+├── packages/
+│   ├── page/
+│   └── slug/
+│
+├── plugins/
+│   ├── blog/
+│   ├── slider/
+│   ├── contact/
+│   └── ...
+│
+└── themes/
+    └── university/
 ```
 
 ---
 
-# 🗄️ Cơ sở dữ liệu
+## Core Modules
+
+### ACL Module
+
+Quản lý:
+
+* Người dùng
+* Vai trò (Roles)
+* Phân quyền (Permissions)
+* Xác thực đăng nhập
+
+### Base Module
+
+Cung cấp:
+
+* Base Model
+* Base Controller
+* Repository Pattern
+* Service Provider
+* Helper Functions
+
+### Dashboard Module
+
+Quản lý:
+
+* Giao diện quản trị
+* Dashboard tổng quan
+* Thống kê hệ thống
+
+### Media Module
+
+Quản lý:
+
+* Upload hình ảnh
+* Thư viện ảnh
+* Quản lý tập tin
+* Storage
+
+---
+
+## Packages
+
+### Page Package
+
+Quản lý:
+
+* Trang nội dung tĩnh
+* Giới thiệu
+* Liên hệ
+* Các trang thông tin
+
+### Slug Package
+
+Quản lý:
+
+* URL thân thiện
+* SEO URL
+* Routing động
+
+---
+
+## Plugins
+
+Hệ thống hỗ trợ mở rộng chức năng thông qua Plugin.
+
+### Blog Plugin
+
+* Quản lý bài viết
+* Quản lý danh mục
+* Tin tức
+
+### Slider Plugin
+
+* Quản lý banner
+* Trình chiếu hình ảnh
+
+### Contact Plugin
+
+* Biểu mẫu liên hệ
+* Quản lý phản hồi
+
+### Các Plugin khác
+
+Có thể mở rộng thêm:
+
+* Gallery
+* FAQ
+* Download
+* Event
+* Notification
+
+---
+
+## Theme System
+
+Hệ thống hỗ trợ nhiều giao diện độc lập.
+
+Ví dụ:
+
+```text
+themes/
+└── university/
+    ├── layouts/
+    ├── partials/
+    ├── pages/
+    ├── blog/
+    ├── assets/
+    └── widgets/
+```
+
+Ưu điểm:
+
+* Tách biệt giao diện và nghiệp vụ.
+* Dễ thay đổi giao diện.
+* Không ảnh hưởng dữ liệu khi thay Theme.
+
+---
+
+## Chức năng chính
+
+### Quản lý nội dung
+
+* Quản lý bài viết
+* Quản lý danh mục
+* Quản lý trang tĩnh
+* Quản lý menu động
+* Quản lý liên kết nhanh
+
+### Quản lý giao diện
+
+* Quản lý Slider
+* Quản lý Logo
+* Quản lý Favicon
+* Quản lý Footer
+* Quản lý Theme
+
+### Quản lý người dùng
+
+* Đăng nhập
+* Đăng ký thành viên
+* Quên mật khẩu
+* Hồ sơ cá nhân
+* Phân quyền
+
+### Quản lý hệ thống
+
+* Cấu hình website
+* Upload Media
+* SEO URL
+* Tìm kiếm nội dung
+
+---
+
+## Cơ sở dữ liệu
 
 Các bảng dữ liệu chính:
 
 ```text
 users
 roles
-
-posts
-categories
+permissions
 
 pages
+posts
+categories
 
 menus
 menu_items
@@ -188,13 +269,38 @@ sliders
 settings
 
 media_files
+
+slugs
 ```
 
 ---
 
-# 🚀 Cài đặt dự án
+## Giao diện hệ thống
 
-## 1. Clone source code
+### Frontend
+
+* Trang chủ
+* Tin tức
+* Chi tiết bài viết
+* Trang nội dung
+* Tìm kiếm
+* Liên hệ
+
+### Backend
+
+* Dashboard
+* Quản lý nội dung
+* Quản lý Media
+* Quản lý Menu
+* Quản lý Banner
+* Quản lý Người dùng
+* Cấu hình hệ thống
+
+---
+
+## Hướng dẫn cài đặt
+
+### Clone source code
 
 ```bash
 git clone https://github.com/your-username/university-cms.git
@@ -204,35 +310,25 @@ git clone https://github.com/your-username/university-cms.git
 cd university-cms
 ```
 
----
-
-## 2. Cài đặt thư viện
+### Cài đặt thư viện
 
 ```bash
 composer install
 ```
 
----
-
-## 3. Tạo file môi trường
+### Tạo file môi trường
 
 ```bash
 cp .env.example .env
 ```
 
----
-
-## 4. Sinh Application Key
+### Sinh Application Key
 
 ```bash
 php artisan key:generate
 ```
 
----
-
-## 5. Cấu hình Database
-
-Mở file `.env`
+### Cấu hình Database
 
 ```env
 DB_CONNECTION=mysql
@@ -243,25 +339,19 @@ DB_USERNAME=root
 DB_PASSWORD=
 ```
 
----
-
-## 6. Chạy Migration
+### Chạy Migration
 
 ```bash
 php artisan migrate
 ```
 
----
-
-## 7. Tạo Storage Link
+### Tạo symbolic link
 
 ```bash
 php artisan storage:link
 ```
 
----
-
-## 8. Chạy ứng dụng
+### Khởi động hệ thống
 
 ```bash
 php artisan serve
@@ -275,105 +365,61 @@ http://127.0.0.1:8000
 
 ---
 
-# 📸 Giao diện hệ thống
+## Tài khoản quản trị
 
-## Trang chủ
-
-```md
-![Home](docs/screenshots/home.png)
-```
-
-## Trang tin tức
-
-```md
-![Blog](docs/screenshots/blog.png)
-```
-
-## Trang quản trị
-
-```md
-![Admin](docs/screenshots/admin.png)
+```text
+Email    : admin@example.com
+Password : 123456
 ```
 
 ---
 
-# 🔐 Tài khoản mặc định
+## Kết quả đạt được
 
-## Administrator
-
-```text
-Email: admin@example.com
-Password: 123456
-```
-
-## Member
-
-```text
-Email: member@example.com
-Password: 123456
-```
-
----
-
-# 🎯 Kết quả đạt được
-
-* Xây dựng thành công CMS bằng Laravel.
+* Xây dựng thành công hệ thống CMS hoàn chỉnh.
 * Áp dụng kiến trúc Modular Monolith.
-* Quản lý bài viết và trang nội dung.
-* Quản lý menu động đa cấp.
-* Quản lý banner và slider.
-* Quản lý cấu hình website.
-* Hệ thống phân quyền người dùng.
-* Upload và quản lý hình ảnh.
-* Giao diện responsive trên nhiều thiết bị.
+* Quản lý nội dung linh hoạt.
+* Hỗ trợ Menu đa cấp.
+* Hỗ trợ URL thân thiện SEO.
+* Quản lý Banner và Media.
+* Hỗ trợ phân quyền người dùng.
+* Giao diện Responsive trên nhiều thiết bị.
+* Hỗ trợ mở rộng bằng Packages và Plugins.
 
 ---
 
-# ⚠️ Hạn chế
+## Hạn chế
 
 * Chưa hỗ trợ đa ngôn ngữ.
 * Chưa triển khai REST API.
-* Chưa tối ưu cache cho hệ thống lớn.
-* Chưa tích hợp thông báo thời gian thực.
+* Chưa tối ưu cache cho dữ liệu lớn.
+* Chưa tích hợp hệ thống thông báo thời gian thực.
 
 ---
 
-# 🔮 Hướng phát triển
+## Hướng phát triển
 
-* Hỗ trợ đa ngôn ngữ.
 * Xây dựng RESTful API.
-* Tối ưu hiệu năng và cache.
-* Tích hợp thông báo thời gian thực.
-* Xây dựng Mobile App kết nối CMS.
+* Hỗ trợ đa ngôn ngữ.
+* Tích hợp Elasticsearch.
+* Tối ưu hiệu năng hệ thống.
+* Phát triển Mobile App kết nối CMS.
+* Bổ sung Plugin Marketplace.
 
 ---
 
-# 👨‍🎓 Thông tin đồ án
+## Tác giả
 
-**Tên đề tài:**
+**Sinh viên thực hiện:** Nguyễn Văn ...
 
-Xây dựng Hệ thống Quản trị Nội dung (CMS) cho Cổng Thông tin Điện tử Trường Đại học
+**Ngành:** Công nghệ Thông tin
 
-**Sinh viên thực hiện:**
+**Trường:** Đại học Nha Trang
 
-Nguyễn Văn ...
-
-**Ngành:**
-
-Công nghệ Thông tin
-
-**Trường:**
-
-Đại học Nha Trang
-
-**Năm thực hiện:**
-
-2026
+**Năm thực hiện:** 2026
 
 ---
 
-# 📄 Giấy phép
+## Giấy phép
 
 Dự án được phát triển phục vụ mục đích học tập, nghiên cứu và báo cáo đồ án tốt nghiệp.
-
-Mọi hình thức sử dụng thương mại cần có sự cho phép của tác giả.
