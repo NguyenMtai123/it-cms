@@ -258,21 +258,48 @@ Các bảng dữ liệu chính:
 ### Frontend
 
 * Trang chủ
+  <img width="1899" height="810" alt="image" src="https://github.com/user-attachments/assets/8517fc7b-3995-4bf1-92ca-09c419d3a648" />
+
 * Tin tức
+  <img width="1825" height="833" alt="image" src="https://github.com/user-attachments/assets/51b69404-8569-4a59-a85e-95d06a70a9a9" />
+
 * Chi tiết bài viết
-* Trang nội dung
+  <img width="1751" height="839" alt="image" src="https://github.com/user-attachments/assets/6b21b66e-4ed3-40a9-bf36-57350887e89e" />
+
 * Tìm kiếm
+ <img width="1809" height="789" alt="image" src="https://github.com/user-attachments/assets/4617a178-b735-4c27-b5f4-fd6585bf8e3d" />
+
 * Liên hệ
+  <img width="1727" height="605" alt="image" src="https://github.com/user-attachments/assets/5e21e58a-d0f5-4eb5-9768-608ae9f9965a" />
+
 
 ### Backend
 
 * Dashboard
+  <img width="1889" height="1079" alt="image" src="https://github.com/user-attachments/assets/916dab16-003c-4997-9bf7-e103b88a5bba" />
+  
 * Quản lý nội dung
+  <img width="1893" height="1072" alt="image" src="https://github.com/user-attachments/assets/4965a95f-1c1c-4447-aaf2-02490544e855" />
+  
+  <img width="1914" height="1071" alt="image" src="https://github.com/user-attachments/assets/7dab747f-8c58-4d72-afed-7cc654db5c7e" />
+  
 * Quản lý Media
+  <img width="1890" height="1026" alt="image" src="https://github.com/user-attachments/assets/170d4739-69e6-4095-995f-5af11fdfbf44" />
+
 * Quản lý Menu
+  <img width="1898" height="1079" alt="image" src="https://github.com/user-attachments/assets/21f74a81-bd4f-4d3e-a959-5bbc78438662" />
+
 * Quản lý Banner
+  <img width="1884" height="1017" alt="image" src="https://github.com/user-attachments/assets/108aa809-bd4c-440d-9ad3-c96057a3ae81" />
+
 * Quản lý Người dùng
+  <img width="1872" height="1061" alt="image" src="https://github.com/user-attachments/assets/f62e9cb9-581d-4525-9472-96e2489a7d3b" />
+
+* Phân quyền
+  <img width="1887" height="962" alt="image" src="https://github.com/user-attachments/assets/0572bff0-d3be-49df-a0d8-3abd81777162" />
+
 * Cấu hình hệ thống
+ <img width="1880" height="1047" alt="image" src="https://github.com/user-attachments/assets/a51bf404-62f9-4c5c-8510-4e98b0193e4b" />
 
 ---
 
