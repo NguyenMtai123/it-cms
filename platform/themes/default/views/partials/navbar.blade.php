@@ -43,9 +43,11 @@
 
                                 @if ($item->url == '/')
                                     <img src="{{ asset('themes/images/home.png') }}" alt="Home"
-                                        class="menu-home-icon">
-                                    {{ $item->label }}
+                                        class="menu-home-icon me-1">
                                 @endif
+
+                                {{ $item->label }}
+
                             </a>
                         </li>
                     @endif

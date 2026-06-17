@@ -79,6 +79,9 @@
                                 <p class="text-muted">Chưa có menu item nào.</p>
                             @endforelse
                         </div>
+                        <div class="mt-3">
+                            {{ $items->links() }}
+                        </div>
                     </div>
                 </div>
             </div>

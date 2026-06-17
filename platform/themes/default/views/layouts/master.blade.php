@@ -8,7 +8,7 @@
     <title>@yield('title', setting('site_title', 'IT CMS'))</title>
 
     @if (setting('site_favicon'))
-        <link rel="icon" href="{{ asset('storage/' .setting('site_favicon')) }}">
+        <link rel="icon" href="{{ asset('storage/' . setting('site_favicon')) }}">
     @endif
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
@@ -277,6 +277,9 @@
             font-size: 16px;
             font-weight: 600;
             padding: 13px 13px !important;
+            display: flex;
+            align-items: center;
+            white-space: nowrap;
         }
 
         .navbar-nav .nav-link:hover {

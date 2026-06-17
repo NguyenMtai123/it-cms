@@ -91,7 +91,7 @@ class MenuController extends Controller
             'page_id' => $request->page_id,
 
             'url' => $page
-                ? $page->url
+                ? parse_url($page->url, PHP_URL_PATH)
                 : $request->url,
 
             'type' => $page
@@ -190,7 +190,7 @@ class MenuController extends Controller
             'page_id' => $request->page_id,
 
             'url' => $page
-                ? $page->url
+                ? parse_url($page->url, PHP_URL_PATH)
                 : $request->url,
 
             'parent_id' => $request->filled('parent_id')
