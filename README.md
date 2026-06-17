@@ -322,11 +322,11 @@ Các bảng dữ liệu chính:
 ### Clone source code
 
 ```bash
-git clone https://github.com/your-username/university-cms.git
+git clone https://github.com/NguyenMtai123/it-cms.git
 ```
 
 ```bash
-cd university-cms
+cd it-cms
 ```
 
 ### Cài đặt thư viện
