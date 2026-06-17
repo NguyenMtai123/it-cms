@@ -50,3 +50,10 @@ if (!function_exists('theme_asset')) {
         return \Platform\Core\Base\Support\ThemeHelper::asset($path);
     }
 }
+if (!function_exists('plugin_active')) {
+
+    function plugin_active(string $slug): bool
+    {
+        return \Platform\Core\Base\Support\PluginManager::isActive($slug);
+    }
+}

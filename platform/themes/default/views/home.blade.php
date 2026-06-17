@@ -61,41 +61,47 @@
 
         {{-- THÔNG BÁO --}}
         <div class="col-lg-3">
+            @if (plugin_active('announcement'))
+                <div class="announcement-box">
 
-            <div class="announcement-box">
+                    <h2 class="home-title mb-4">
+                        Thông báo
+                    </h2>
 
-                <h2 class="home-title mb-4">
-                    Thông báo
-                </h2>
+                    <div class="announcement-scroll">
 
-                <div class="announcement-scroll">
+                        @foreach ($announcements as $item)
+                            <div class="announcement-item">
 
-                    @foreach ($announcements as $item)
-                        <div class="announcement-item">
+                                @if (Route::has('announcements.show'))
+                                    <a href="{{ route('announcements.show', $item->slug) }}">
+                                        {{ $item->title }}
+                                    </a>
+                                @else
+                                    <span>{{ $item->title }}</span>
+                                @endif
 
-                            <a href="{{ route('announcements.show', $item->slug) }}">
-                                {{ $item->title }}
-                            </a>
+                                <div class="announcement-date">
+                                    [{{ $item->created_at->format('d/m/Y') }}]
+                                </div>
 
-                            <div class="announcement-date">
-                                [{{ $item->created_at->format('d/m/Y') }}]
                             </div>
+                        @endforeach
 
-                        </div>
-                    @endforeach
+                    </div>
+
+                    <div class="announcement-more">
+
+                        @if (Route::has('announcements'))
+                            <a href="{{ route('announcements') }}">
+                                Xem tất cả →
+                            </a>
+                        @endif
+
+                    </div>
 
                 </div>
-
-                <div class="announcement-more">
-
-                    <a href="{{ route('announcements') }}">
-                        Xem tất cả →
-                    </a>
-
-                </div>
-
-            </div>
-
+            @endif
         </div>
 
     </div>
@@ -736,8 +742,8 @@
         }
 
         /* -----------------------------------------------------
-                                                                                               ITEM
-                                                                                            ----------------------------------------------------- */
+                                                                                                               ITEM
+                                                                                                            ----------------------------------------------------- */
 
         .admission-item {
             display: flex;
@@ -876,8 +882,8 @@
         }
 
         /* ==========================================
-                                                                           DỰ ÁN QUỐC TẾ TIÊU BIỂU
-                                                                        ========================================== */
+                                                                                           DỰ ÁN QUỐC TẾ TIÊU BIỂU
+                                                                                        ========================================== */
 
         .international-projects {
             padding: 50px 0;
@@ -935,8 +941,8 @@
         }
 
         /* ===========================
-                                                                           RESPONSIVE
-                                                                        =========================== */
+                                                                                           RESPONSIVE
+                                                                                        =========================== */
 
         @media (max-width: 1400px) {
 
@@ -983,8 +989,8 @@
         }
 
         /* ==========================
-                                                           VIDEO CENTER
-                                                        ========================== */
+                                                                           VIDEO CENTER
+                                                                        ========================== */
 
         .video-main {
             position: relative;
@@ -1112,8 +1118,8 @@
         }
 
         /* ==================================
-                                                   NTU GÓC NHÌN CHIA SẺ
-                                                ================================== */
+                                                                   NTU GÓC NHÌN CHIA SẺ
+                                                                ================================== */
 
         .sharing-box {
             background: #fffffc;
@@ -1174,8 +1180,8 @@
         }
 
         /* ==================================
-                                           NTU TRONG TÔI
-                                        ================================== */
+                                                           NTU TRONG TÔI
+                                                        ================================== */
 
         .ntu-section {
             background: #f3f3f3;
@@ -1308,8 +1314,8 @@
         }
 
         /* =================================
-                               TÌM HIỂU VỀ NTU
-                            ================================= */
+                                               TÌM HIỂU VỀ NTU
+                                            ================================= */
 
         .about-ntu-section {
 

@@ -183,36 +183,37 @@
                     @endif
                 </div>
             </div>
-
-            <div class="col-lg-4">
-                <div class="card-soft p-4 h-100">
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                        <div>
-                            <h2 class="section-title mb-1">Thông báo</h2>
-                            <p class="section-subtitle">Tin nhắn, lịch và các thông báo mới.</p>
-                        </div>
-                        <a href="{{ route('announcements') }}" class="text-decoration-none fw-semibold"
-                            style="color:var(--primary);">
-                            Tất cả
-                        </a>
-                    </div>
-
-                    <div class="announcement-list">
-                        @forelse ($announcements as $item)
-                            <a href="{{ route('announcements.show', $item->slug) }}" class="announcement-item">
-                                <div class="announcement-dot"></div>
-                                <div class="flex-grow-1">
-                                    <div class="announcement-title clamp-2">{{ $item->title }}</div>
-                                    <div class="announcement-date">{{ $item->created_at->format('d/m/Y') }}</div>
-                                </div>
-                                <i class="fa-solid fa-angle-right text-soft"></i>
+            @if (plugin_active('announcement'))
+                <div class="col-lg-4">
+                    <div class="card-soft p-4 h-100">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <div>
+                                <h2 class="section-title mb-1">Thông báo</h2>
+                                <p class="section-subtitle">Tin nhắn, lịch và các thông báo mới.</p>
+                            </div>
+                            <a href="{{ route('announcements') }}" class="text-decoration-none fw-semibold"
+                                style="color:var(--primary);">
+                                Tất cả
                             </a>
-                        @empty
-                            <div class="text-soft">Chưa có thông báo.</div>
-                        @endforelse
+                        </div>
+
+                        <div class="announcement-list">
+                            @forelse ($announcements as $item)
+                                <a href="{{ route('announcements.show', $item->slug) }}" class="announcement-item">
+                                    <div class="announcement-dot"></div>
+                                    <div class="flex-grow-1">
+                                        <div class="announcement-title clamp-2">{{ $item->title }}</div>
+                                        <div class="announcement-date">{{ $item->created_at->format('d/m/Y') }}</div>
+                                    </div>
+                                    <i class="fa-solid fa-angle-right text-soft"></i>
+                                </a>
+                            @empty
+                                <div class="text-soft">Chưa có thông báo.</div>
+                            @endforelse
+                        </div>
                     </div>
                 </div>
-            </div>
+            @endif
         </div>
     </section>
 
@@ -372,7 +373,7 @@
                     @foreach ($projects as $project)
                         <div class="project-item">
                             <div class="project-logo-box">
-                                <img src="{{ asset('storage/' .$project->logo )}}" alt="{{ $project->name }}">
+                                <img src="{{ asset('storage/' . $project->logo) }}" alt="{{ $project->name }}">
                             </div>
                         </div>
                     @endforeach
@@ -446,7 +447,7 @@
                         <h2 class="section-title mb-3">{{ $sharingCategory->name }}</h2>
 
                         <a href="{{ url('/blog/' . $topPost->slug) }}" class="sharing-featured">
-                            <img src="{{ asset('storage/' .$topPost->image) }}" alt="{{ $topPost->title }}"
+                            <img src="{{ asset('storage/' . $topPost->image) }}" alt="{{ $topPost->title }}"
                                 class="rounded-4 w-100 mb-3">
                             <h6 class="clamp-2 mb-2 text-dark">{{ $topPost->title }}</h6>
                         </a>
@@ -477,7 +478,7 @@
                                 <div class="ntu-card">
                                     <a href="{{ url('/blog/' . $post->slug) }}" class="ntu-card-link">
                                         <div class="ntu-image-wrap">
-                                            <img src="{{ asset('storage/' .$post->image) }}" alt="{{ $post->title }}">
+                                            <img src="{{ asset('storage/' . $post->image) }}" alt="{{ $post->title }}">
                                             <div class="ntu-overlay">
                                                 <span>Chi tiết <i class="fa-solid fa-arrow-right ms-1"></i></span>
                                             </div>

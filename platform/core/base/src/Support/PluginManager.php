@@ -23,4 +23,11 @@ class PluginManager
             app()->register($plugin->provider);
         }
     }
+    public static function isActive(string $slug): bool
+    {
+        return Plugin::query()
+            ->where('slug', $slug)
+            ->where('is_active', 1)
+            ->exists();
+    }
 }

@@ -8,7 +8,7 @@
     <title>@yield('title', setting('site_title', 'IT CMS'))</title>
 
     @if (setting('site_favicon'))
-        <link rel="icon" href="{{ asset('storage/' .setting('site_favicon')) }}">
+        <link rel="icon" href="{{ asset('storage/' . setting('site_favicon')) }}">
     @endif
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -545,7 +545,7 @@
         <div class="container container-wide brand-row px-3">
             <div class="d-flex flex-column flex-lg-row justify-content-between align-items-lg-center gap-3">
                 <a href="{{ url('/') }}" class="brand-wrap text-decoration-none">
-                    <img class="brand-logo" src="{{ asset('storage/' .setting('site_logo', '')) }}"
+                    <img class="brand-logo" src="{{ asset('storage/' . setting('site_logo', '')) }}"
                         alt="{{ setting('site_title', 'IT CMS') }}" onerror="this.style.display='none'">
                     <div class="brand-text">
                         <div class="site-title">{{ setting('site_title', 'IT CMS') }}</div>
@@ -560,10 +560,11 @@
                         <input type="search" name="q" placeholder="Tìm kiếm tin tức, bài viết, thông báo...">
                         <button type="submit"><i class="bi bi-search"></i></button>
                     </form>
-
-                    <a href="{{ route('announcements') }}" class="btn btn-theme-outline">
-                        <i class="bi bi-megaphone me-1"></i> Thông báo
-                    </a>
+                    @if (plugin_active('announcement'))
+                        <a href="{{ route('announcements') }}" class="btn btn-theme-outline">
+                            <i class="bi bi-megaphone me-1"></i> Thông báo
+                        </a>
+                    @endif
                 </div>
             </div>
         </div>
@@ -630,20 +631,20 @@
     @endif
     <main class="site-content">
         @hasSection('sidebar')
-                <div class="row g-4 mt-3 p-4">
+            <div class="row g-4 mt-3 p-4">
 
-                    <div class="col-lg-8">
-                        @yield('content')
-                    </div>
-
-                    <div class="col-lg-4">
-                        @yield('sidebar')
-                    </div>
-
+                <div class="col-lg-8">
+                    @yield('content')
                 </div>
-            @else
-                @yield('content')
-            @endif
+
+                <div class="col-lg-4">
+                    @yield('sidebar')
+                </div>
+
+            </div>
+        @else
+            @yield('content')
+        @endif
     </main>
 
     <footer class="site-footer mt-5" id="contact">
@@ -651,8 +652,8 @@
             <div class="row g-4">
                 <div class="col-lg-4">
                     <div class="footer-brand">
-                        <img src="{{ asset('storage/' .setting('site_logo', '')) }}" alt="{{ setting('site_title', 'IT CMS') }}"
-                            onerror="this.style.display='none'">
+                        <img src="{{ asset('storage/' . setting('site_logo', '')) }}"
+                            alt="{{ setting('site_title', 'IT CMS') }}" onerror="this.style.display='none'">
                         <div>
                             <div class="footer-title mb-1">{{ setting('site_title', 'IT CMS') }}</div>
                             <div class="text-soft">
@@ -668,7 +669,9 @@
 
                     <div class="mt-3 d-flex flex-wrap gap-2">
                         <a href="{{ url('/') }}" class="btn btn-theme">Trang chủ</a>
-                        <a href="{{ route('announcements') }}" class="btn btn-theme-outline">Thông báo</a>
+                        @if (plugin_active('announcement'))
+                            <a href="{{ route('announcements') }}" class="btn btn-theme-outline">Thông báo</a>
+                        @endif
                     </div>
                 </div>
 
@@ -680,7 +683,9 @@
                         @endforeach
                     @else
                         <a class="footer-link" href="{{ url('/blog') }}">Tin tức</a>
-                        <a class="footer-link" href="{{ route('announcements') }}">Thông báo</a>
+                        @if (plugin_active('announcement'))
+                            <a class="footer-link" href="{{ route('announcements') }}">Thông báo</a>
+                        @endif
                     @endif
                 </div>
 

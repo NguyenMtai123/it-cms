@@ -19,7 +19,7 @@
                             @foreach ($sliders as $slider)
                                 <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
                                     <div class="hero-slide">
-                                        <img src="{{ asset('storage/' .$slider->image) }}" alt="{{ $slider->title }}"
+                                        <img src="{{ asset('storage/' . $slider->image) }}" alt="{{ $slider->title }}"
                                             class="hero-image">
                                         <div class="hero-overlay"></div>
                                         <div class="hero-content">
@@ -46,9 +46,11 @@
                                                 <a href="{{ $slider->url ?: url('/blog') }}" class="btn btn-theme">
                                                     <i class="bi bi-arrow-right-circle me-1"></i> Khám phá
                                                 </a>
-                                                <a href="{{ route('announcements') }}" class="btn btn-theme-outline">
-                                                    <i class="bi bi-megaphone me-1"></i> Thông báo
-                                                </a>
+                                                @if (plugin_active('announcement'))
+                                                    <a href="{{ route('announcements') }}" class="btn btn-theme-outline">
+                                                        <i class="bi bi-megaphone me-1"></i> Thông báo
+                                                    </a>
+                                                @endif
                                             </div>
                                         </div>
                                     </div>
@@ -87,9 +89,12 @@
                                 <a href="{{ url('/blog') }}" class="btn btn-theme">
                                     <i class="bi bi-journal-text me-1"></i> Xem tin tức
                                 </a>
+                                @if(plugin_active('announcement'))
+
                                 <a href="{{ route('announcements') }}" class="btn btn-theme-outline">
                                     <i class="bi bi-bell me-1"></i> Thông báo
                                 </a>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -175,8 +180,8 @@
                         <div class="feature-card p-0 overflow-hidden">
                             <a href="{{ url('/blog/' . $mainFeatured->slug) }}" class="feature-main">
                                 <div class="feature-image-wrap">
-                                    <img src="{{asset('storage/' .$mainFeatured->image) }}" alt="{{ $mainFeatured->title }}"
-                                        class="feature-image">
+                                    <img src="{{ asset('storage/' . $mainFeatured->image) }}"
+                                        alt="{{ $mainFeatured->title }}" class="feature-image">
                                     <div class="feature-gradient"></div>
                                 </div>
 
@@ -213,7 +218,8 @@
                         @foreach ($featuredSide as $post)
                             <div class="col-md-6">
                                 <a href="{{ url('/blog/' . $post->slug) }}" class="news-card h-100">
-                                    <img src="{{ asset('storage/' .$post->image) }}" alt="{{ $post->title }}" class="news-thumb">
+                                    <img src="{{ asset('storage/' . $post->image) }}" alt="{{ $post->title }}"
+                                        class="news-thumb">
                                     <div class="news-body">
                                         <div class="news-date">
                                             <i class="bi bi-calendar3 me-1"></i> {{ $post->created_at->format('d/m/Y') }}
@@ -225,6 +231,7 @@
                         @endforeach
                     </div>
                 </div>
+                @if(plugin_active('announcement'))
 
                 <div class="col-lg-4">
                     <div class="section-head mb-3 mb-lg-4">
@@ -257,6 +264,7 @@
                         </div>
                     </div>
                 </div>
+                @endif
             </div>
         </div>
     </section>
@@ -278,7 +286,8 @@
                         <div class="col-md-6 col-lg-3">
                             <a href="{{ url('/blog/' . $post->slug) }}" class="story-card h-100">
                                 <div class="story-image-wrap">
-                                    <img src="{{ asset('storage/' .$post->image) }}" alt="{{ $post->title }}" class="story-image">
+                                    <img src="{{ asset('storage/' . $post->image) }}" alt="{{ $post->title }}"
+                                        class="story-image">
                                 </div>
                                 <div class="story-body">
                                     <div class="story-date">
@@ -323,7 +332,7 @@
                                     </div>
 
                                     <a href="{{ url('/blog/' . $main->slug) }}" class="category-main">
-                                        <img src="{{ asset('storage/' .$main->image) }}" alt="{{ $main->title }}"
+                                        <img src="{{ asset('storage/' . $main->image) }}" alt="{{ $main->title }}"
                                             class="category-image">
                                         <h5 class="category-title clamp-2">{{ $main->title }}</h5>
                                     </a>
@@ -354,7 +363,7 @@
             <div class="container container-wide">
                 <div class="admission-card overflow-hidden">
                     <div class="admission-hero"
-                        style="background-image:url('{{ asset('storage/' .$admissionSetting->background_image) }}');">
+                        style="background-image:url('{{ asset('storage/' . $admissionSetting->background_image) }}');">
                         <div class="admission-overlay"></div>
 
                         <div class="position-relative">
@@ -371,8 +380,8 @@
                             <div class="row g-4 align-items-stretch">
                                 <div class="col-lg-4">
                                     <a href="{{ $admissionSetting->banner_url ?: '#' }}" class="admission-banner-card">
-                                        <img src="{{ asset('storage/' .$admissionSetting->banner_image) }}" alt="Admission Banner"
-                                            class="admission-banner-img">
+                                        <img src="{{ asset('storage/' . $admissionSetting->banner_image) }}"
+                                            alt="Admission Banner" class="admission-banner-img">
                                     </a>
                                 </div>
 
@@ -394,8 +403,8 @@
 
                                 <div class="col-lg-3">
                                     <a href="{{ $admissionSetting->career_url ?: '#' }}" class="admission-career-card">
-                                        <img src="{{ asset('storage/' .$admissionSetting->career_image) }}" alt="Career"
-                                            class="admission-career-img">
+                                        <img src="{{ asset('storage/' . $admissionSetting->career_image) }}"
+                                            alt="Career" class="admission-career-img">
                                     </a>
                                 </div>
                             </div>
@@ -422,7 +431,7 @@
                     @foreach ($projects as $project)
                         <div class="project-item">
                             <div class="project-box">
-                                <img src="{{ asset('storage/' .$project->logo) }}" alt="{{ $project->name }}">
+                                <img src="{{ asset('storage/' . $project->logo) }}" alt="{{ $project->name }}">
                             </div>
                         </div>
                     @endforeach
@@ -502,7 +511,7 @@
 
                             <div class="sharing-card p-4">
                                 <a href="{{ url('/blog/' . $topPost->slug) }}" class="sharing-featured">
-                                    <img src="{{ asset('storage/' .$topPost->image) }}" alt="{{ $topPost->title }}">
+                                    <img src="{{ asset('storage/' . $topPost->image) }}" alt="{{ $topPost->title }}">
                                     <h4 class="clamp-3">{{ $topPost->title }}</h4>
                                 </a>
 
@@ -540,7 +549,7 @@
                         <div class="ntu-card">
                             <a href="{{ url('/blog/' . $post->slug) }}" class="ntu-link">
                                 <div class="ntu-image-wrap">
-                                    <img src="{{ asset('storage/' .$post->image) }}" alt="{{ $post->title }}">
+                                    <img src="{{ asset('storage/' . $post->image) }}" alt="{{ $post->title }}">
                                     <div class="ntu-overlay">
                                         <span>➜ Chi tiết</span>
                                     </div>
@@ -625,8 +634,8 @@
             position: absolute;
             inset: 0;
             /* background:
-                    linear-gradient(90deg, rgba(15, 23, 42, .86) 0%, rgba(15, 23, 42, .48) 48%, rgba(15, 23, 42, .12) 100%),
-                    linear-gradient(180deg, rgba(15, 23, 42, .24) 0%, rgba(15, 23, 42, .62) 100%); */
+                        linear-gradient(90deg, rgba(15, 23, 42, .86) 0%, rgba(15, 23, 42, .48) 48%, rgba(15, 23, 42, .12) 100%),
+                        linear-gradient(180deg, rgba(15, 23, 42, .24) 0%, rgba(15, 23, 42, .62) 100%); */
         }
 
         .hero-content {

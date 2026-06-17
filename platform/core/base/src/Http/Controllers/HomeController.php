@@ -4,7 +4,6 @@ namespace Platform\Core\Base\Http\Controllers;
 
 use Illuminate\Routing\Controller;
 use Platform\Core\Base\Models\Announcement;
-use Platform\Packages\Page\Models\Page;
 use Platform\Plugins\AboutLink\Models\AboutLink;
 use Platform\Plugins\Admission\Models\Admission;
 use Platform\Plugins\Admission\Models\AdmissionSetting;
@@ -21,11 +20,25 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $sliders = Banner::where('status', 1)
-            ->orderBy('sort_order')
-            ->take(5)
-            ->get();
+        /*
+        |--------------------------------------------------------------------------
+        | Banner
+        |--------------------------------------------------------------------------
+        */
+        $sliders = collect();
 
+        if (plugin_active('banner')) {
+            $sliders = Banner::where('status', 1)
+                ->orderBy('sort_order')
+                ->take(5)
+                ->get();
+        }
+
+        /*
+        |--------------------------------------------------------------------------
+        | Blog
+        |--------------------------------------------------------------------------
+        */
         $featuredPosts = Post::where('is_featured', 1)
             ->latest()
             ->take(5)
@@ -41,30 +54,86 @@ class HomeController extends Controller
             ->orderBy('sort_order')
             ->take(4)
             ->get();
-        $announcements = Announcement::where('is_active', 1)
-            ->latest()
-            ->take(3)
-            ->get();
-        $admissionSetting =
-            AdmissionSetting::first();
 
-        $admissions =
-            Admission::where('status', 1)
+        /*
+        |--------------------------------------------------------------------------
+        | Announcement
+        |--------------------------------------------------------------------------
+        */
+        $announcements = collect();
+
+        if (plugin_active('announcement')) {
+            $announcements = Announcement::where('is_active', 1)
+                ->latest()
+                ->take(3)
+                ->get();
+        }
+
+        /*
+        |--------------------------------------------------------------------------
+        | Admission
+        |--------------------------------------------------------------------------
+        */
+        $admissionSetting = null;
+        $admissions = collect();
+
+        if (plugin_active('admission')) {
+
+            $admissionSetting = AdmissionSetting::first();
+
+            $admissions = Admission::where('status', 1)
                 ->orderBy('sort_order')
                 ->get();
+        }
 
-        $quickLinks = QuickLink::where('status', 1)
-            ->orderBy('sort_order')
-            ->take(4)
-            ->get();
-        $projects = Project::where('status', 1)
-            ->orderBy('sort_order')
-            ->get();
+        /*
+        |--------------------------------------------------------------------------
+        | Quick Links
+        |--------------------------------------------------------------------------
+        */
+        $quickLinks = collect();
 
-        $videos = Video::where('status', 1)
-            ->orderBy('sort_order')
-            ->get();
+        if (plugin_active('quick-link')) {
 
+            $quickLinks = QuickLink::where('status', 1)
+                ->orderBy('sort_order')
+                ->take(4)
+                ->get();
+        }
+
+        /*
+        |--------------------------------------------------------------------------
+        | Projects
+        |--------------------------------------------------------------------------
+        */
+        $projects = collect();
+
+        if (plugin_active('project')) {
+
+            $projects = Project::where('status', 1)
+                ->orderBy('sort_order')
+                ->get();
+        }
+
+        /*
+        |--------------------------------------------------------------------------
+        | Videos
+        |--------------------------------------------------------------------------
+        */
+        $videos = collect();
+
+        if (plugin_active('video')) {
+
+            $videos = Video::where('status', 1)
+                ->orderBy('sort_order')
+                ->get();
+        }
+
+        /*
+        |--------------------------------------------------------------------------
+        | Sharing Category
+        |--------------------------------------------------------------------------
+        */
         $sharingCategory = Category::where('status', 1)
             ->whereNull('parent_id')
             ->where('sort_order', 5)
@@ -82,6 +151,11 @@ class HomeController extends Controller
                 ->get();
         }
 
+        /*
+        |--------------------------------------------------------------------------
+        | NTU Category
+        |--------------------------------------------------------------------------
+        */
         $ntuCategory = Category::where('status', 1)
             ->whereNull('parent_id')
             ->where('sort_order', 4)
@@ -98,33 +172,55 @@ class HomeController extends Controller
                 ->get();
         }
 
-        $aboutLinks = AboutLink::where('status', 1)
-            ->orderBy('sort_order')
-            ->get();
+        /*
+        |--------------------------------------------------------------------------
+        | About Link
+        |--------------------------------------------------------------------------
+        */
+        $aboutLinks = collect();
 
-        $footerSetting = FooterSetting::first();
+        if (plugin_active('about-link')) {
 
-        $organizationLinks = FooterLink::where('group', 'organization')
-            ->where('status', 1)
-            ->orderBy('sort_order')
-            ->get();
+            $aboutLinks = AboutLink::where('status', 1)
+                ->orderBy('sort_order')
+                ->get();
+        }
 
-        $quickFooterLinks = FooterLink::where('group', 'quick')
-            ->where('status', 1)
-            ->orderBy('sort_order')
-            ->get();
+        /*
+        |--------------------------------------------------------------------------
+        | Footer
+        |--------------------------------------------------------------------------
+        */
+        $footerSetting = null;
+        $organizationLinks = collect();
+        $quickFooterLinks = collect();
+
+        if (plugin_active('footer')) {
+
+            $footerSetting = FooterSetting::first();
+
+            $organizationLinks = FooterLink::where('group', 'organization')
+                ->where('status', 1)
+                ->orderBy('sort_order')
+                ->get();
+
+            $quickFooterLinks = FooterLink::where('group', 'quick')
+                ->where('status', 1)
+                ->orderBy('sort_order')
+                ->get();
+        }
 
         return view('theme::home', compact(
             'sliders',
             'featuredPosts',
-            'quickLinks',
             'latestPosts',
             'categories',
             'announcements',
             'admissionSetting',
             'admissions',
-            'videos',
+            'quickLinks',
             'projects',
+            'videos',
             'sharingCategory',
             'sharingPosts',
             'ntuCategory',
