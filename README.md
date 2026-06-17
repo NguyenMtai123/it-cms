@@ -252,7 +252,7 @@ themes/
 
 Các bảng dữ liệu chính:
 
-<img width="1741" height="966" alt="image" src="https://github.com/user-attachments/assets/c4e3f9ff-2eb4-4586-ba9e-65c8c6ac08be" />
+<img width="1899" height="810" alt="image" src="https://github.com/user-attachments/assets/c4e3f9ff-2eb4-4586-ba9e-65c8c6ac08be" />
 
 ## Giao diện hệ thống
 
@@ -272,7 +272,7 @@ Các bảng dữ liệu chính:
 
 * Tìm kiếm
   
- <img width="1899" height="810" alt="image" src="https://github.com/user-attachments/assets/4617a178-b735-4c27-b5f4-fd6585bf8e3d" />
+  <img width="1899" height="810" alt="image" src="https://github.com/user-attachments/assets/4617a178-b735-4c27-b5f4-fd6585bf8e3d" />
 
 * Liên hệ
 
