@@ -251,29 +251,7 @@ themes/
 ## Cơ sở dữ liệu
 
 Các bảng dữ liệu chính:
-
-```text
-users
-roles
-permissions
-
-pages
-posts
-categories
-
-menus
-menu_items
-
-sliders
-
-settings
-
-media_files
-
-slugs
-```
-
----
+<img width="1741" height="966" alt="image" src="https://github.com/user-attachments/assets/c4e3f9ff-2eb4-4586-ba9e-65c8c6ac08be" />
 
 ## Giao diện hệ thống
 
