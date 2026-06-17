@@ -353,16 +353,22 @@ php artisan key:generate
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
-DB_DATABASE=university_cms
+DB_DATABASE=it_cms
 DB_USERNAME=root
 DB_PASSWORD=
 ```
 
-### Chạy Migration
+### Chạy Migration hoặc import file.sql vào xampp
 
 ```bash
 php artisan migrate
 ```
+hoặc import sql: it_cms(10).sql
+bước 1: Tạo database tên : it_cms
+bước 2: chọn import file sql:
+
+<img width="1899" height="810" alt="image" src="https://github.com/user-attachments/assets/b2e73369-d2e0-4bec-865a-b4dc766027ab" />
+
 
 ### Tạo symbolic link
 
@@ -387,7 +393,7 @@ http://127.0.0.1:8000
 ## Tài khoản quản trị
 
 ```text
-Email    : admin@example.com
+Email    : admin@gmail.com
 Password : 123456
 ```
 
@@ -429,9 +435,9 @@ Password : 123456
 
 ## Tác giả
 
-**Sinh viên thực hiện:** Nguyễn Văn ...
+**Sinh viên thực hiện:** Nguyễn Minh Tài
 
-**Ngành:** Công nghệ Thông tin
+**Ngành:** Công Nghệ Thông Tin
 
 **Trường:** Đại học Nha Trang
 
