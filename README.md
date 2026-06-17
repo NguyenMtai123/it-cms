@@ -1,71 +1,123 @@
-# University CMS - Hệ Thống Quản Trị Nội Dung Website Trường Đại Học
+# 🎓 University CMS
+
+<div align="center">
 
 ![Laravel](https://img.shields.io/badge/Laravel-11-red)
 ![PHP](https://img.shields.io/badge/PHP-8.2-blue)
-![MySQL](https://img.shields.io/badge/MySQL-Database-orange)
+![MySQL](https://img.shields.io/badge/MySQL-10.4-orange)
 ![Bootstrap](https://img.shields.io/badge/Bootstrap-5-purple)
-![License](https://img.shields.io/badge/License-Educational-green)
+![Architecture](https://img.shields.io/badge/Architecture-Modular%20Monolith-success)
 
-## Giới thiệu
+**Hệ thống quản trị nội dung (CMS) dành cho cổng thông tin điện tử trường đại học**
 
-University CMS là hệ thống quản trị nội dung (Content Management System - CMS) được phát triển bằng Laravel Framework và MySQL nhằm hỗ trợ xây dựng và quản lý cổng thông tin điện tử cho trường đại học.
-
-Hệ thống cho phép quản trị viên dễ dàng quản lý nội dung website, bài viết, trang thông tin, menu điều hướng, banner quảng bá, người dùng và các cấu hình hệ thống thông qua giao diện quản trị trực quan.
-
-Dự án được thực hiện trong khuôn khổ đồ án tốt nghiệp ngành Công nghệ Thông tin.
+</div>
 
 ---
 
-## Chức năng chính
+# 📖 Giới thiệu
 
-### Quản lý nội dung
+University CMS là hệ thống quản trị nội dung được phát triển bằng **Laravel Framework** và **MySQL**, cho phép quản lý toàn bộ nội dung website trường đại học thông qua giao diện quản trị trực quan.
 
-* Quản lý trang tĩnh (Pages)
+Hệ thống hỗ trợ quản lý bài viết, trang nội dung, menu điều hướng, banner, người dùng, cấu hình website và nhiều thành phần khác nhằm đáp ứng nhu cầu vận hành cổng thông tin điện tử hiện đại.
+
+Dự án được xây dựng trong khuôn khổ **Đồ án Tốt nghiệp ngành Công nghệ Thông tin**.
+
+---
+
+# ✨ Chức năng nổi bật
+
+## 📄 Quản lý nội dung
+
+* Quản lý trang nội dung (Pages)
 * Quản lý bài viết (Posts)
-* Quản lý danh mục bài viết (Categories)
-* Quản lý nội dung trang chủ
-* Hiển thị bài viết theo danh mục
+* Quản lý danh mục (Categories)
+* Hiển thị tin tức theo danh mục
+* Tìm kiếm bài viết
 
-### Quản lý giao diện
+## 🖼️ Quản lý giao diện
 
 * Quản lý Menu động
-* Hỗ trợ menu đa cấp
+* Hỗ trợ Menu đa cấp
 * Quản lý Banner / Slider
-* Quản lý logo website
-* Quản lý favicon
-* Cấu hình giao diện người dùng
+* Quản lý Logo Website
+* Quản lý Favicon
+* Quản lý Footer
+* Quản lý liên kết nhanh
 
-### Quản lý người dùng
+## 👥 Quản lý người dùng
 
-* Đăng nhập hệ thống
+* Đăng nhập
+* Đăng xuất
 * Đăng ký thành viên
 * Quên mật khẩu
 * Hồ sơ cá nhân
 * Phân quyền người dùng
 
-### Quản lý hệ thống
+## ⚙️ Quản lý hệ thống
 
-* Quản lý cấu hình website
-* Quản lý liên kết nhanh
-* Quản lý thông tin footer
-* Upload và quản lý hình ảnh
-* Tìm kiếm nội dung
+* Cấu hình website
+* Upload hình ảnh
+* Quản lý tập tin Media
+* Quản lý thông tin liên hệ
 
 ---
 
-## Công nghệ sử dụng
+# 🏗️ Kiến trúc hệ thống
 
-### Backend
+Hệ thống được xây dựng theo kiến trúc:
+
+## Modular Monolith Architecture
+
+Ứng dụng được triển khai dưới dạng một hệ thống thống nhất (Monolith) nhưng được chia thành nhiều module độc lập theo từng chức năng nghiệp vụ.
+
+### Các module chính
+
+```text
+platform/
+└── Core/
+    ├── ACL
+    ├── Base
+    ├── Blog
+    ├── Page
+    ├── Menu
+    ├── Media
+    ├── Slider
+    └── Setting
+```
+
+Mỗi module được tổ chức theo mô hình MVC:
+
+```text
+Blog/
+├── Models/
+├── Http/
+│   ├── Controllers/
+│   └── Requests/
+├── Resources/
+│   └── Views/
+├── Routes/
+└── Providers/
+```
+
+### Ưu điểm
+
+* Dễ mở rộng
+* Dễ bảo trì
+* Tách biệt nghiệp vụ rõ ràng
+* Giảm sự phụ thuộc giữa các thành phần
+* Phù hợp với hệ thống CMS quy mô vừa và lớn
+
+---
+
+# 🧱 Công nghệ sử dụng
+
+## Backend
 
 * PHP 8.x
 * Laravel Framework
 * Eloquent ORM
 
-### Database
-
-* MySQL
-
-### Frontend
+## Frontend
 
 * HTML5
 * CSS3
@@ -74,7 +126,11 @@ Dự án được thực hiện trong khuôn khổ đồ án tốt nghiệp ngà
 * jQuery
 * Font Awesome
 
-### Công cụ phát triển
+## Database
+
+* MySQL
+
+## Công cụ phát triển
 
 * Composer
 * Git
@@ -83,93 +139,98 @@ Dự án được thực hiện trong khuôn khổ đồ án tốt nghiệp ngà
 
 ---
 
-## Kiến trúc hệ thống
+# 📂 Cấu trúc dự án
 
-Hệ thống được xây dựng theo mô hình MVC (Model – View – Controller).
+```text
+app/
+bootstrap/
+config/
+database/
+public/
+resources/
+routes/
 
-### Model
+platform/
+└── Core/
+    ├── ACL/
+    ├── Base/
+    ├── Blog/
+    ├── Menu/
+    ├── Media/
+    ├── Page/
+    ├── Setting/
+    └── Slider/
 
-Chịu trách nhiệm xử lý dữ liệu và tương tác với cơ sở dữ liệu.
-
-### View
-
-Hiển thị giao diện người dùng và giao diện quản trị.
-
-### Controller
-
-Tiếp nhận yêu cầu từ người dùng, xử lý nghiệp vụ và trả về kết quả.
+storage/
+vendor/
+```
 
 ---
 
-## Cơ sở dữ liệu
+# 🗄️ Cơ sở dữ liệu
 
 Các bảng dữ liệu chính:
 
-* users
-* roles
-* pages
-* posts
-* categories
-* menus
-* menu_items
-* sliders
-* settings
+```text
+users
+roles
+
+posts
+categories
+
+pages
+
+menus
+menu_items
+
+sliders
+
+settings
+
+media_files
+```
 
 ---
 
-## Giao diện hệ thống
+# 🚀 Cài đặt dự án
 
-### Trang chủ
+## 1. Clone source code
 
-* Banner Slider
-* Tin tức nổi bật
-* Danh mục bài viết
-* Menu điều hướng
-* Footer động
+```bash
+git clone https://github.com/your-username/university-cms.git
+```
 
-### Trang quản trị
-
-* Dashboard
-* Quản lý bài viết
-* Quản lý trang
-* Quản lý menu
-* Quản lý banner
-* Quản lý người dùng
-* Cấu hình website
+```bash
+cd university-cms
+```
 
 ---
 
-## Hướng dẫn cài đặt
-
-### 1. Clone dự án
-
-```bash
-git clone https://github.com/NguyenMtai123/it-cms.git
-```
-
-```bash
-cd it-cms
-```
-
-### 2. Cài đặt thư viện
+## 2. Cài đặt thư viện
 
 ```bash
 composer install
 ```
 
-### 3. Tạo file môi trường
+---
+
+## 3. Tạo file môi trường
 
 ```bash
 cp .env.example .env
 ```
 
-### 4. Sinh khóa ứng dụng
+---
+
+## 4. Sinh Application Key
 
 ```bash
 php artisan key:generate
 ```
 
-### 5. Cấu hình Database
+---
+
+## 5. Cấu hình Database
 
 Mở file `.env`
 
@@ -177,26 +238,30 @@ Mở file `.env`
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
-DB_DATABASE=it_cms
+DB_DATABASE=university_cms
 DB_USERNAME=root
 DB_PASSWORD=
 ```
 
-### 6. Chạy Migration hoặc import vào xampp
+---
 
-
+## 6. Chạy Migration
 
 ```bash
 php artisan migrate
 ```
 
-### 7. Tạo symbolic link cho thư mục storage
+---
+
+## 7. Tạo Storage Link
 
 ```bash
 php artisan storage:link
 ```
 
-### 8. Khởi động hệ thống
+---
+
+## 8. Chạy ứng dụng
 
 ```bash
 php artisan serve
@@ -210,16 +275,38 @@ http://127.0.0.1:8000
 
 ---
 
-## Tài khoản đăng nhập
+# 📸 Giao diện hệ thống
 
-### Quản trị viên
+## Trang chủ
+
+```md
+![Home](docs/screenshots/home.png)
+```
+
+## Trang tin tức
+
+```md
+![Blog](docs/screenshots/blog.png)
+```
+
+## Trang quản trị
+
+```md
+![Admin](docs/screenshots/admin.png)
+```
+
+---
+
+# 🔐 Tài khoản mặc định
+
+## Administrator
 
 ```text
 Email: admin@example.com
 Password: 123456
 ```
 
-### Thành viên
+## Member
 
 ```text
 Email: member@example.com
@@ -228,77 +315,65 @@ Password: 123456
 
 ---
 
-## Cấu trúc thư mục
+# 🎯 Kết quả đạt được
 
-```text
-app/
-├── Http/
-│   ├── Controllers/
-│   ├── Middleware/
-│
-├── Models/
-
-resources/
-├── views/
-├── css/
-├── js/
-
-routes/
-├── web.php
-
-database/
-├── migrations/
-
-public/
-├── storage/
-```
-
----
-
-## Kết quả đạt được
-
-* Xây dựng hoàn chỉnh hệ thống CMS bằng Laravel.
-* Xây dựng giao diện website trường đại học.
-* Quản lý menu động đa cấp.
+* Xây dựng thành công CMS bằng Laravel.
+* Áp dụng kiến trúc Modular Monolith.
 * Quản lý bài viết và trang nội dung.
-* Upload và hiển thị hình ảnh.
-* Hệ thống đăng nhập và phân quyền.
+* Quản lý menu động đa cấp.
+* Quản lý banner và slider.
+* Quản lý cấu hình website.
+* Hệ thống phân quyền người dùng.
+* Upload và quản lý hình ảnh.
 * Giao diện responsive trên nhiều thiết bị.
-* Tối ưu khả năng mở rộng hệ thống.
 
 ---
 
-## Hạn chế
+# ⚠️ Hạn chế
 
 * Chưa hỗ trợ đa ngôn ngữ.
-* Chưa tích hợp REST API.
-* Chưa triển khai hệ thống cache nâng cao.
-* Chưa hỗ trợ thông báo thời gian thực.
+* Chưa triển khai REST API.
+* Chưa tối ưu cache cho hệ thống lớn.
+* Chưa tích hợp thông báo thời gian thực.
 
 ---
 
-## Hướng phát triển
+# 🔮 Hướng phát triển
 
-* Bổ sung đa ngôn ngữ.
-* Tích hợp RESTful API.
-* Tối ưu hiệu năng hệ thống.
-* Bổ sung hệ thống thông báo.
-* Xây dựng ứng dụng Mobile kết nối CMS.
-
----
-
-## Tác giả
-
-Sinh viên thực hiện: Nguyễn Văn ...
-
-Ngành: Công nghệ Thông tin
-
-Trường Đại học Nha Trang
-
-Năm thực hiện: 2026
+* Hỗ trợ đa ngôn ngữ.
+* Xây dựng RESTful API.
+* Tối ưu hiệu năng và cache.
+* Tích hợp thông báo thời gian thực.
+* Xây dựng Mobile App kết nối CMS.
 
 ---
 
-## Giấy phép
+# 👨‍🎓 Thông tin đồ án
 
-Dự án được xây dựng phục vụ mục đích học tập, nghiên cứu và báo cáo đồ án tốt nghiệp.
+**Tên đề tài:**
+
+Xây dựng Hệ thống Quản trị Nội dung (CMS) cho Cổng Thông tin Điện tử Trường Đại học
+
+**Sinh viên thực hiện:**
+
+Nguyễn Văn ...
+
+**Ngành:**
+
+Công nghệ Thông tin
+
+**Trường:**
+
+Đại học Nha Trang
+
+**Năm thực hiện:**
+
+2026
+
+---
+
+# 📄 Giấy phép
+
+Dự án được phát triển phục vụ mục đích học tập, nghiên cứu và báo cáo đồ án tốt nghiệp.
+
+Mọi hình thức sử dụng thương mại cần có sự cho phép của tác giả.
