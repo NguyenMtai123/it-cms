@@ -144,11 +144,11 @@ Các bảng dữ liệu chính:
 ### 1. Clone dự án
 
 ```bash
-git clone https://github.com/your-username/university-cms.git
+git clone https://github.com/NguyenMtai123/it-cms.git
 ```
 
 ```bash
-cd university-cms
+cd it-cms
 ```
 
 ### 2. Cài đặt thư viện
@@ -177,12 +177,14 @@ Mở file `.env`
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
-DB_DATABASE=university_cms
+DB_DATABASE=it_cms
 DB_USERNAME=root
 DB_PASSWORD=
 ```
 
-### 6. Chạy Migration
+### 6. Chạy Migration hoặc import vào xampp
+
+
 
 ```bash
 php artisan migrate
